@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import {
   Box,
+  Button,
   Typography,
   IconButton,
   TextField,
@@ -278,6 +279,7 @@ export default function ActiveRentalDetailPage() {
   const set = <K extends keyof PropertyFormData>(key: K, value: PropertyFormData[K]) => {
     setForm(prev => ({ ...prev, [key]: value }));
   };
+  const expectedRentUpperLimit = Number(form.expectedRent ?? 0);
 
   return (
     <PageContainer>
@@ -375,9 +377,17 @@ export default function ActiveRentalDetailPage() {
           <SectionCard title="基本資料">
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               {/* 案名 */}
-              <Box>
-                <FieldLabel label="案名" required />
-                <StyledInput value={form.caseName} onChange={v => set('caseName', v)} fullWidth />
+              <Box sx={{ display: 'flex', gap: 2 }}>
+                <Box sx={{ flex: 1 }}>
+                  <FieldLabel label="案名" required />
+                  <StyledInput value={form.caseName} onChange={v => set('caseName', v)} fullWidth />
+                </Box>
+                {propertyType === 'social' && (
+                  <Box sx={{ flex: 1 }}>
+                    <FieldLabel label="社宅物件編號" />
+                    <StyledInput value={form.socialPropertyNo} onChange={v => set('socialPropertyNo', v)} fullWidth />
+                  </Box>
+                )}
               </Box>
               {/* 總樓層 + 社區名稱 */}
               <Box sx={{ display: 'flex', gap: 2 }}>
@@ -526,22 +536,28 @@ export default function ActiveRentalDetailPage() {
                 <Box sx={{ flex: 1 }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
                     <FieldLabel label="預期租金" required />
-                    <Typography sx={{ fontSize: '12px', color: 'rgba(36,53,82,0.5)' }}>
-                      粗金水準範圍 上限: ¥{Number(form.expectedRent ?? 0).toLocaleString()}
+                    <Typography sx={{ fontSize: '12px', color: 'var(--color-secondary)' }}>
+                      租金水準區間表上限：{expectedRentUpperLimit.toLocaleString()}
                     </Typography>
                   </Box>
                   <Box sx={{ display: 'flex', gap: 1 }}>
                     <StyledInput value={form.expectedRent} onChange={v => set('expectedRent', v)} />
-                    <Box
+                    <Button
+                      type="button"
+                      onClick={() => set('expectedRent', expectedRentUpperLimit > 0 ? String(expectedRentUpperLimit) : '')}
                       sx={{
                         display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                        px: 2, height: '40px', border: '1px solid #31a0e8', borderRadius: '8px',
+                        px: 2, height: '40px', border: '1px solid var(--color-secondary)', borderRadius: '8px',
                         cursor: 'pointer', whiteSpace: 'nowrap',
-                        '&:hover': { bgcolor: 'rgba(49,160,232,0.06)' },
+                        color: 'var(--color-secondary)',
+                        fontSize: '13px',
+                        fontWeight: 500,
+                        minWidth: 'auto',
+                        '&:hover': { bgcolor: 'var(--color-secondary-light)', borderColor: 'var(--color-secondary)' },
                       }}
                     >
-                      <Typography sx={{ fontSize: '13px', color: '#31a0e8', fontWeight: 500 }}>套用最高上限</Typography>
-                    </Box>
+                      套用最高上限
+                    </Button>
                   </Box>
                 </Box>
                 <FieldWrap label="押金" required half>
@@ -625,7 +641,7 @@ function AddressRow({ form, set }: { form: PropertyFormData; set: <K extends key
             }}
           />
         </Box>
-        <TextField value={form.addressDetail ?? ''} onChange={e => set('addressDetail', e.target.value)} size="small" placeholder="巷弄號樓" sx={{ ...inputSx, width: '140px' }} />
+        <TextField value={form.addressDetail ?? ''} onChange={e => set('addressDetail', e.target.value)} size="small" placeholder="巷弄號樓" sx={{ ...inputSx, flex: 1 }} />
         <IconButton size="small" sx={{ color: 'rgba(36,53,82,0.5)' }}><MdLocationOn size={20} /></IconButton>
         <Box
           sx={{

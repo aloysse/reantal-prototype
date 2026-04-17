@@ -83,7 +83,7 @@ const ROWS_PER_PAGE = 10;
 const headerCols = [
   { label: '類型', width: 80 },
   { label: '社宅申請狀態', width: 100 },
-  { label: '社宅編碼', width: 200 },
+  { label: '社宅物件編號', width: 200 },
   { label: '物件名稱', flex: true },
   { label: '門牌地址', width: 200 },
   { label: '租金', width: 110 },
@@ -175,7 +175,7 @@ export default function ActiveRentalsPage() {
                 textTransform: 'none',
               }}
             >
-              新增出租中物件
+              新增物件
             </Button>
 
             {/* Search */}

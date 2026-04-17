@@ -28,6 +28,7 @@ import {
   MdDelete,
   MdLocationOn,
   MdFolderOpen,
+  MdChangeCircle,
 } from 'react-icons/md';
 import {
   properties,
@@ -895,25 +896,37 @@ export default function ActiveRentalLandlordPage() {
 
         {/* 狀態標籤 */}
         {statusTags.length > 0 && (
-          <Box sx={{ display: 'flex', gap: 1.5, mt: 1.5, mb: 2.5 }}>
-            {statusTags.map((tag, i) => (
-              <Box
-                key={i}
-                sx={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  bgcolor: '#8dde85',
-                  borderRadius: '90px',
-                  px: 1.5,
-                  py: 0.25,
-                  minHeight: '24px',
-                }}
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 1.5, mb: 2.5 }}>
+            <Box sx={{ display: 'flex', gap: 1.5 }}>
+              {statusTags.map((tag, i) => (
+                <Box
+                  key={i}
+                  sx={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    bgcolor: '#8dde85',
+                    borderRadius: '90px',
+                    px: 1.5,
+                    py: 0.25,
+                    minHeight: '24px',
+                  }}
+                >
+                  <Typography sx={{ fontSize: '12px', color: '#ffffff', whiteSpace: 'nowrap' }}>
+                    {tag.date}{tag.date && ' '}{tag.label}
+                  </Typography>
+                </Box>
+              ))}
+            </Box>
+            {hasLandlord && (
+              <Button
+                variant="contained"
+                startIcon={<MdChangeCircle size={16} />}
+                onClick={() => setShowSourceModal(true)}
+                sx={{ bgcolor: '#31a0e8', borderRadius: '8px', fontSize: '12px', px: 2, minHeight: '34px', boxShadow: 'none' }}
               >
-                <Typography sx={{ fontSize: '12px', color: '#ffffff', whiteSpace: 'nowrap' }}>
-                  {tag.date}{tag.date && ' '}{tag.label}
-                </Typography>
-              </Box>
-            ))}
+                更改出租人
+              </Button>
+            )}
           </Box>
         )}
 

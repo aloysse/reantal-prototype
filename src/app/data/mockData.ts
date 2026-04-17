@@ -39,6 +39,7 @@ export interface PropertyFormData {
   shareNumerator?: string;   // 建物持分比 分子
   shareDenominator?: string; // 建物持分比 分母
   // 基本資料
+  socialPropertyNo?: string; // 社宅物件編號（社宅專用）
   caseName?: string;
   totalFloors?: string;
   communityName?: string;
@@ -93,6 +94,7 @@ export interface Property {
   buildingType: string;
   landlordId?: string;
   tenantId?: string;
+  socialMatchNo?: string;    // 社宅媒合編號（社宅專用）
   // 詳細資料（列表頁不使用）
   periodLabel?: string;
   statusTags?: { date: string; label: string }[];
@@ -139,6 +141,7 @@ export interface Landlord {
 
 export interface Tenant {
   id: string;
+  socialTenantNo?: string;   // 社宅承租人編號（社宅專用）
   name: string;
   phone: string;
   idNumber: string;
@@ -346,6 +349,7 @@ export const landlords: Landlord[] = [
 export const tenants: Tenant[] = [
   {
     id: 't001',
+    socialTenantNo: '住通台北B2T00000001',
     name: '張小華',
     phone: '0956-111-222',
     idNumber: 'D456789012',
@@ -432,6 +436,7 @@ export const tenants: Tenant[] = [
   },
   {
     id: 't003',
+    socialTenantNo: '住通台北B2T00000003',
     name: '黃建國',
     phone: '0978-333-444',
     idNumber: 'F678901234',
@@ -497,6 +502,7 @@ export const properties: Property[] = [
     listingType: 'active',
     socialApplicationStatus: 'approved',
     socialCode: '住通台北B301555660125',
+    socialMatchNo: '住通台北B2M00000001',
     name: '🏠 近捷運亞東醫院站 ✨全新裝潢2房1廳',
     address: '板橋區四川路二段47巷3樓',
     rent: 20000,
@@ -508,8 +514,8 @@ export const properties: Property[] = [
     tenantId: 't001',
     periodLabel: '社宅第五期 1040101',
     statusTags: [
-      { date: '2025-06-13', label: '第五期 更新' },
-      { date: '2025-05-14', label: '委本申請達成' },
+      { date: '2025-06-13', label: '張順心建立' },
+      { date: '2025-05-14', label: '陳天成更新' },
     ],
     formData: {
       addressZip: '220',
@@ -526,6 +532,7 @@ export const properties: Property[] = [
       actualArea: '39.67',
       shareNumerator: '1',
       shareDenominator: '10000',
+      socialPropertyNo: '住通台北B2M00000001',
       caseName: '近捷運亞東醫院站 全新裝潢2房1廳',
       totalFloors: '12',
       communityName: '四川路社區',
@@ -634,6 +641,7 @@ export const properties: Property[] = [
     listingType: 'active',
     socialApplicationStatus: 'approved',
     socialCode: '住通台北B301555660125',
+    socialMatchNo: '住通台北B2M00000003',
     name: '秒租🏡新埔捷運1分鐘裝潢滿1房1廳',
     address: '板橋區四川路二段47巷3樓',
     rent: 20000,
@@ -645,8 +653,8 @@ export const properties: Property[] = [
     tenantId: 't003',
     periodLabel: '社宅第五期 1040101',
     statusTags: [
-      { date: '2025-06-01', label: '第五期 更新' },
-      { date: '2025-05-20', label: '委本申請達成' },
+      { date: '2025-06-01', label: '張順心建立' },
+      { date: '2025-05-20', label: '陳天成更新' },
     ],
     formData: {
       addressZip: '220',
@@ -663,6 +671,7 @@ export const properties: Property[] = [
       actualArea: '39.67',
       shareNumerator: '1',
       shareDenominator: '10000',
+      socialPropertyNo: '住通台北B2M00000003',
       caseName: '新埔捷運1分鐘 裝潢滿1房1廳',
       totalFloors: '12',
       communityName: '新埔社區',
@@ -704,6 +713,7 @@ export const properties: Property[] = [
     type: 'social',
     listingType: 'active',
     socialApplicationStatus: 'pending',
+    socialMatchNo: '住通台北B2M00000004',
     name: '府中捷運生活機能強、市場餐廳近，舒適安靜',
     address: '板橋區四川路二段47巷3樓',
     rent: 20000,
@@ -730,6 +740,7 @@ export const properties: Property[] = [
       actualArea: '39.67',
       shareNumerator: '1',
       shareDenominator: '10000',
+      socialPropertyNo: '住通台北B2M00000004',
       caseName: '府中捷運 生活機能強 市場餐廳近',
       totalFloors: '12',
       communityName: '府中社區',
@@ -840,6 +851,7 @@ export const properties: Property[] = [
     listingType: 'active',
     socialApplicationStatus: 'approved',
     socialCode: '住通台北B301555660125',
+    socialMatchNo: '住通台北B2M00000006',
     name: '🏠 近捷運亞東醫院站 ✨全新裝潢2房1廳',
     address: '板橋區四川路二段47巷3樓',
     rent: 18000,
@@ -850,8 +862,8 @@ export const properties: Property[] = [
     landlordId: 'l003',
     periodLabel: '社宅第五期 1040101',
     statusTags: [
-      { date: '2025-06-10', label: '第五期 更新' },
-      { date: '2025-05-30', label: '委本申請達成' },
+      { date: '2025-06-10', label: '張順心建立' },
+      { date: '2025-05-30', label: '陳天成更新' },
     ],
     formData: {
       addressZip: '220',
@@ -868,6 +880,7 @@ export const properties: Property[] = [
       actualArea: '33.06',
       shareNumerator: '1',
       shareDenominator: '12000',
+      socialPropertyNo: '住通台北B2M00000006',
       caseName: '亞東醫院站 全新裝潢2房1廳',
       totalFloors: '8',
       communityName: '',

@@ -20,7 +20,7 @@ export default function ActiveRentalAutoFillPage() {
     <PageContainer>
 
       {/* 狀態標籤 */}
-      {statusTags.length > 0 && (
+      {/* {statusTags.length > 0 && (
         <Box sx={{ display: 'flex', gap: 1.5, mt: 1.5, mb: 2.5 }}>
           {statusTags.map((tag, i) => (
             <Box
@@ -41,7 +41,7 @@ export default function ActiveRentalAutoFillPage() {
             </Box>
           ))}
         </Box>
-      )}
+      )} */}
       <Box sx={{ bgcolor: '#ffffff', borderRadius: '12px', p: 3, boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
 
         {/* 警告提示 */}

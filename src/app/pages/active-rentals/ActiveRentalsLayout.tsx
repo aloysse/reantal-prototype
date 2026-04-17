@@ -63,10 +63,12 @@ function StepsBar({
   steps,
   currentStepNumber,
   periodLabel,
+  onStepClick,
 }: {
-  steps: { number: number; label: string }[];
+  steps: { number: number; label: string; path?: string }[];
   currentStepNumber: number;
   periodLabel?: string | null;
+  onStepClick?: (path: string) => void;
 }) {
   const navigate = useNavigate();
 
@@ -114,16 +116,26 @@ function StepsBar({
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexShrink: 0 }}>
         {steps.map((step, i) => {
           const isActive = step.number === currentStepNumber;
+          const isClickable = step.path !== undefined;
           return (
             <Box key={step.number} sx={{ display: 'flex', alignItems: 'center', gap: 1, flexShrink: 0 }}>
               <Box
+                component="button"
+                type="button"
+                onClick={isClickable ? () => onStepClick?.(step.path ?? '') : undefined}
+                disabled={!isClickable}
                 sx={{
+                  p: 0,
+                  m: 0,
+                  border: 'none',
+                  bgcolor: 'transparent',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
                   gap: 1,
                   width: '60px',
                   flexShrink: 0,
+                  cursor: isClickable ? 'pointer' : 'default',
                 }}
               >
                 <Box
@@ -216,6 +228,7 @@ export default function ActiveRentalsLayout() {
 
   const steps = propertyType === 'social' ? SOCIAL_STEPS : GENERAL_STEPS;
   const routeSteps = propertyType === 'social' ? SOCIAL_ROUTE_STEPS : GENERAL_ROUTE_STEPS;
+  const stepsWithPath = steps.map((step, index) => ({ ...step, path: routeSteps[index]?.path }));
   const currentRouteStepIndex = routeSteps.findIndex(step => step.path === subPath);
   const safeCurrentIndex = currentRouteStepIndex >= 0 ? currentRouteStepIndex : 0;
   const prevRouteStep = safeCurrentIndex > 0 ? routeSteps[safeCurrentIndex - 1] : null;
@@ -244,9 +257,10 @@ export default function ActiveRentalsLayout() {
       >
         <Box sx={{ maxWidth: '1584px', mx: 'auto', px: 3 }}>
           <StepsBar
-            steps={steps}
+            steps={stepsWithPath}
             currentStepNumber={currentStepNumber}
             periodLabel={periodLabel}
+            onStepClick={(path) => navigate(toDetailPath(path))}
           />
         </Box>
       </Box>

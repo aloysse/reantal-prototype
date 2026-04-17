@@ -10,7 +10,19 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  TextField,
 } from '@mui/material';
+
+const inputSx = {
+  '& .MuiOutlinedInput-root': {
+    height: '40px',
+    borderRadius: '8px',
+    bgcolor: '#ffffff',
+    fontSize: '14px',
+    '& fieldset': { borderColor: 'rgba(0,0,0,0.23)' },
+    '&:hover fieldset': { borderColor: 'rgba(0,0,0,0.4)' },
+  },
+} as const;
 import {
   MdAdd,
   MdFileDownload,
@@ -37,6 +49,7 @@ export default function ActiveRentalContractPage() {
   const { id } = useParams<{ id: string }>();
   const isNew = id === 'new';
   const property = isNew ? null : properties.find(p => p.id === id);
+  const isSocial = property?.type === 'social';
   const statusTags = isNew ? [{ date: '', label: 'New' }] : (property?.statusTags ?? []);
 
   const [docs, setDocs] = useState<ContractDocumentItem[]>(
@@ -72,7 +85,7 @@ export default function ActiveRentalContractPage() {
     <PageContainer>
 
       {/* 狀態標籤 */}
-      {statusTags.length > 0 && (
+      {/* {statusTags.length > 0 && (
         <Box sx={{ display: 'flex', gap: 1.5, mt: 1.5, mb: 2.5 }}>
           {statusTags.map((tag, i) => (
             <Box
@@ -93,9 +106,22 @@ export default function ActiveRentalContractPage() {
             </Box>
           ))}
         </Box>
-      )}
+      )} */}
 
       <Box sx={{ bgcolor: '#ffffff', borderRadius: '12px', p: 3, boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
+
+        {/* 媒合編號（社宅專用） */}
+        {isSocial && (
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
+            <Typography sx={{ fontSize: '14px', color: 'rgba(36,53,82,0.6)', whiteSpace: 'nowrap' }}>
+              媒合編號
+            </Typography>
+            <TextField
+              defaultValue={property?.socialMatchNo ?? ''}
+              sx={{ ...inputSx, width: '260px' }}
+            />
+          </Box>
+        )}
 
         {/* 新增按鈕 */}
         <Button

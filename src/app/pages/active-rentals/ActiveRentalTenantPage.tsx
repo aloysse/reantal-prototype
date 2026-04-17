@@ -3,7 +3,12 @@ import { useParams } from 'react-router-dom';
 import {
   Box,
   Button,
+  Dialog,
+  FormControlLabel,
   IconButton,
+  Pagination,
+  Radio,
+  RadioGroup,
   TextField,
   Typography,
   Checkbox,
@@ -11,11 +16,15 @@ import {
 import {
   MdAdd,
   MdAutoFixHigh,
+  MdChangeCircle,
+  MdCheckCircle,
   MdFileUpload,
+  MdManageSearch,
   MdOutlineCheck,
   MdEdit,
   MdDelete,
   MdSave,
+  MdSearch,
   MdClose,
 } from 'react-icons/md';
 import { properties, tenants, type LandlordAddress, type Tenant } from '../../data/mockData';
@@ -149,18 +158,245 @@ function TextInput({
   );
 }
 
+// ─── SelectTenantSourceModal ──────────────────────────────────────────────────
+
+function SelectTenantSourceModal({
+  open,
+  onClose,
+  onCreateNew,
+  onSelectExisting,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onCreateNew: () => void;
+  onSelectExisting: () => void;
+}) {
+  return (
+    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth
+      slotProps={{ paper: { sx: { borderRadius: '16px', p: 4, boxShadow: '1px 3px 7px 0px rgba(17,28,45,0.18)' } } }}
+    >
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+        <Typography sx={{ fontSize: '24px', fontWeight: 500, color: '#124a57' }}>選擇來源</Typography>
+        <IconButton size="small" onClick={onClose}><MdClose size={22} /></IconButton>
+      </Box>
+      <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
+        <Button
+          variant="outlined"
+          startIcon={<MdAdd size={18} />}
+          onClick={onCreateNew}
+          fullWidth
+          sx={{
+            borderColor: '#31a0e8',
+            color: '#31a0e8',
+            borderRadius: '8px',
+            fontSize: '14px',
+            fontWeight: 500,
+            py: 1.25,
+            '&:hover': { borderColor: '#2090d8', bgcolor: 'rgba(49,160,232,0.06)' },
+          }}
+        >
+          建立新承租人
+        </Button>
+        <Button
+          variant="contained"
+          startIcon={<MdManageSearch size={18} />}
+          onClick={onSelectExisting}
+          fullWidth
+          sx={{
+            bgcolor: '#31a0e8',
+            borderRadius: '8px',
+            fontSize: '14px',
+            fontWeight: 500,
+            py: 1.25,
+            boxShadow: '0px 1px 5px rgba(0,0,0,0.12), 0px 2px 2px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.2)',
+            '&:hover': { bgcolor: '#2090d8' },
+          }}
+        >
+          選擇現有承租人
+        </Button>
+      </Box>
+    </Dialog>
+  );
+}
+
+// ─── SelectExistingTenantModal ────────────────────────────────────────────────
+
+function SelectExistingTenantModal({
+  open,
+  onClose,
+  onConfirm,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onConfirm: (tenant: Tenant) => void;
+}) {
+  const [search, setSearch] = useState('');
+  const [selected, setSelected] = useState<string>('');
+  const [page, setPage] = useState(1);
+
+  const filtered = tenants.filter(t =>
+    !search || t.name.includes(search) || t.phone.includes(search) || t.idNumber.includes(search)
+  );
+  const PAGE_SIZE = 8;
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const paged = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
+  const selectedTenant = tenants.find(t => t.id === selected);
+
+  const handleConfirm = () => {
+    if (selectedTenant) onConfirm(selectedTenant);
+  };
+
+  return (
+    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth
+      slotProps={{ paper: { sx: { borderRadius: '16px', p: 4, boxShadow: '1px 3px 7px 0px rgba(17,28,45,0.18)' } } }}
+    >
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+        <Typography sx={{ fontSize: '24px', fontWeight: 500, color: '#124a57' }}>選擇承租人</Typography>
+        <IconButton size="small" onClick={onClose}><MdClose size={22} /></IconButton>
+      </Box>
+
+      {/* 搜尋列 */}
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1, mb: 2 }}>
+        <TextField
+          value={search}
+          onChange={e => { setSearch(e.target.value); setPage(1); }}
+          placeholder="關鍵字搜尋"
+          size="small"
+          sx={{ ...inputSx, width: '220px' }}
+        />
+        <Button
+          variant="contained"
+          startIcon={<MdSearch size={18} />}
+          sx={{
+            bgcolor: '#31a0e8',
+            borderRadius: '8px',
+            fontSize: '14px',
+            fontWeight: 500,
+            height: '37px',
+            boxShadow: '0px 1px 5px rgba(0,0,0,0.12), 0px 2px 2px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.2)',
+            '&:hover': { bgcolor: '#2090d8' },
+          }}
+        >
+          搜尋
+        </Button>
+      </Box>
+
+      {/* 表格標題 */}
+      <Box sx={{ display: 'flex', gap: 1, px: 2, py: 0.5, borderBottom: '1px solid rgba(36,53,82,0.35)' }}>
+        <Box sx={{ width: '38px' }} />
+        <Typography sx={{ flex: 1, fontSize: '14px', color: 'rgba(36,53,82,0.6)', fontWeight: 500 }}>姓名</Typography>
+        <Typography sx={{ width: '160px', fontSize: '14px', color: 'rgba(36,53,82,0.6)', fontWeight: 500 }}>身分證字號</Typography>
+        <Typography sx={{ width: '200px', fontSize: '14px', color: 'rgba(36,53,82,0.6)', fontWeight: 500 }}>電話</Typography>
+      </Box>
+
+      {/* 列表 */}
+      <RadioGroup value={selected} onChange={e => setSelected(e.target.value)}>
+        {paged.map(t => (
+          <Box
+            key={t.id}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1,
+              px: 2,
+              py: 0.5,
+              borderBottom: '1px solid rgba(36,53,82,0.35)',
+              cursor: 'pointer',
+              '&:hover': { bgcolor: 'rgba(49,160,232,0.04)' },
+            }}
+            onClick={() => setSelected(t.id)}
+          >
+            <FormControlLabel
+              value={t.id}
+              control={<Radio size="small" color="primary" sx={{ p: '9px' }} />}
+              label=""
+              sx={{ m: 0 }}
+            />
+            <Typography sx={{ flex: 1, fontSize: '14px', fontWeight: 500, color: '#124a57' }}>{t.name}</Typography>
+            <Typography sx={{ width: '160px', fontSize: '12px', color: '#124a57' }}>{t.idNumber}</Typography>
+            <Typography sx={{ width: '200px', fontSize: '12px', color: '#124a57' }}>{t.phone}</Typography>
+          </Box>
+        ))}
+      </RadioGroup>
+
+      {/* Pagination */}
+      <Box sx={{ display: 'flex', justifyContent: 'center', pt: 3 }}>
+        <Pagination
+          count={totalPages}
+          page={page}
+          onChange={(_, v) => setPage(v)}
+          size="small"
+          color="primary"
+          showFirstButton
+          showLastButton
+        />
+      </Box>
+
+      {/* 底部確認 */}
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 2, pt: 3 }}>
+        {selectedTenant && (
+          <Typography sx={{ fontSize: '14px', fontWeight: 500 }}>
+            <span style={{ color: 'rgba(36,53,82,0.6)' }}>已選擇</span>
+            {` ${selectedTenant.name}`}
+          </Typography>
+        )}
+        <Button
+          variant="contained"
+          startIcon={<MdCheckCircle size={18} />}
+          onClick={handleConfirm}
+          disabled={!selected}
+          sx={{
+            bgcolor: '#31a0e8',
+            borderRadius: '8px',
+            fontSize: '14px',
+            fontWeight: 500,
+            height: '37px',
+            boxShadow: '0px 1px 5px rgba(0,0,0,0.12), 0px 2px 2px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.2)',
+            '&:hover': { bgcolor: '#2090d8' },
+          }}
+        >
+          確認
+        </Button>
+      </Box>
+    </Dialog>
+  );
+}
+
 export default function ActiveRentalTenantPage() {
   const { id } = useParams<{ id: string }>();
   const isNew = id === 'new';
   const property = isNew ? null : properties.find(p => p.id === id);
+  const isSocial = property?.type === 'social';
   const tenant = tenants.find(t => t.id === property?.tenantId);
   const statusTags = isNew ? [{ date: '', label: 'New' }] : (property?.statusTags ?? []);
 
   const [form, setForm] = useState<Tenant | null>(tenant ?? null);
+  const [showSourceModal, setShowSourceModal] = useState(false);
+  const [showSelectModal, setShowSelectModal] = useState(false);
   const hasTenant = Boolean(form);
 
   const setTenant = <K extends keyof Tenant>(key: K, value: Tenant[K]) => {
     setForm(prev => (prev ? { ...prev, [key]: value } : prev));
+  };
+
+  const handleCreateNew = () => {
+    setForm({
+      id: 'new',
+      name: '',
+      phone: '',
+      idNumber: '',
+      email: '',
+      familyMembers: [],
+      propertyHoldings: [],
+    });
+    setShowSourceModal(false);
+  };
+
+  const handleSelectExisting = (t: Tenant) => {
+    setForm({ ...t });
+    setShowSelectModal(false);
+    setShowSourceModal(false);
   };
 
   const copyAddress = () => {
@@ -206,6 +442,8 @@ export default function ActiveRentalTenantPage() {
             {hasTenant && (
               <Button
                 variant="contained"
+                startIcon={<MdChangeCircle size={16} />}
+                onClick={() => setShowSourceModal(true)}
                 sx={{ bgcolor: '#31a0e8', borderRadius: '8px', fontSize: '12px', px: 2, minHeight: '34px', boxShadow: 'none' }}
               >
                 更改承租人
@@ -253,17 +491,7 @@ export default function ActiveRentalTenantPage() {
               variant="contained"
               startIcon={<MdAdd size={16} />}
               sx={{ bgcolor: '#31a0e8', borderRadius: '8px', px: 2, minHeight: '45px', boxShadow: 'none' }}
-              onClick={() => {
-                setForm({
-                  id: 'new',
-                  name: '',
-                  phone: '',
-                  idNumber: '',
-                  email: '',
-                  familyMembers: [],
-                  propertyHoldings: [],
-                });
-              }}
+              onClick={() => setShowSourceModal(true)}
             >
               新增承租人
             </Button>
@@ -310,6 +538,9 @@ export default function ActiveRentalTenantPage() {
                       </Box>
                     </Box>
                     <TextInput label="姓名" required value={tenantForm.name} onChange={v => setTenant('name', v)} />
+                    {isSocial && (
+                      <TextInput label="社宅承租人編號" value={tenantForm.socialTenantNo} onChange={v => setTenant('socialTenantNo', v)} />
+                    )}
                   </Box>
 
                   <Box sx={{ display: 'flex', gap: 1 }}>
@@ -460,6 +691,18 @@ export default function ActiveRentalTenantPage() {
         )}
 
         </Box>{/* end sections */}
+
+      <SelectTenantSourceModal
+        open={showSourceModal}
+        onClose={() => setShowSourceModal(false)}
+        onCreateNew={handleCreateNew}
+        onSelectExisting={() => { setShowSourceModal(false); setShowSelectModal(true); }}
+      />
+      <SelectExistingTenantModal
+        open={showSelectModal}
+        onClose={() => setShowSelectModal(false)}
+        onConfirm={handleSelectExisting}
+      />
     </PageContainer>
   );
 }

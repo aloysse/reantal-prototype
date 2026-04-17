@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation, useSearchParams, Outlet } from 'react-router-dom';
 import { Box, Fab, Typography } from '@mui/material';
 import { MdArrowBack, MdArrowBackIosNew, MdArrowForwardIos, MdArrowUpward, MdSave } from 'react-icons/md';
@@ -187,6 +188,14 @@ export default function ActiveRentalsLayout() {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
+  const [showTopShadow, setShowTopShadow] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setShowTopShadow(window.scrollY > 0);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   // 從路徑最後一段判斷當前步驟
   const pathParts = location.pathname.split('/');
@@ -229,7 +238,8 @@ export default function ActiveRentalsLayout() {
           right: 0,
           zIndex: 1100,
           bgcolor: '#eef1f2',
-          borderBottom: '1px solid rgba(36,53,82,0.1)',
+          boxShadow: showTopShadow ? '0 4px 14px rgba(18,74,87,0.16)' : 'none',
+          transition: 'box-shadow 180ms ease',
         }}
       >
         <Box sx={{ maxWidth: '1584px', mx: 'auto', px: 3 }}>

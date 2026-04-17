@@ -10,23 +10,72 @@ import {
   Box,
   Typography,
 } from '@mui/material';
-import { MdPeople } from 'react-icons/md';
+import type { MouseEventHandler } from 'react';
+import type { IconType } from 'react-icons';
+import {
+  MdGroups,
+  MdConstruction,
+  MdDescription,
+  MdHomeWork,
+  MdHandshake,
+  MdPeopleAlt,
+  MdBusinessCenter,
+  MdBarChart,
+  MdManageAccounts,
+  MdSettings,
+  MdPerson,
+} from 'react-icons/md';
 
-const navItems = [
-  { label: '開發', path: null },
-  { label: '謄本', path: null },
-  { label: '物件', path: null },
-  { label: '客戶', path: null },
-  { label: '經管', path: null },
-  { label: '統計', path: null },
-  { label: '管理', path: null },
-  { label: '系統', path: null },
+const navItems: { label: string; path?: string; icon: IconType }[] = [
+  { label: '開發', icon: MdConstruction },
+  { label: '謄本', icon: MdDescription },
+  { label: '物件', icon: MdHomeWork },
+  { label: '客戶', icon: MdPeopleAlt },
+  { label: '經營', icon: MdBusinessCenter },
+  { label: '統計', icon: MdBarChart },
+  { label: '管理', icon: MdManageAccounts },
+  { label: '系統', icon: MdSettings },
 ];
 
 const rentalMenuItems = [
   { label: '委託出租物件', path: '/properties' },
   { label: '出租中物件', path: '/active-rentals' },
 ];
+
+function TopNavButton({
+  label,
+  icon: Icon,
+  active,
+  onClick,
+}: {
+  label: string;
+  icon: IconType;
+  active?: boolean;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+}) {
+  return (
+    <Button
+      onClick={onClick}
+      sx={{
+        minWidth: 'auto',
+        height: '37px',
+        px: '16px',
+        py: '8px',
+        borderRadius: '8px',
+        gap: 1,
+        color: '#124a57',
+        fontSize: '16px',
+        fontWeight: 500,
+        lineHeight: 1,
+        bgcolor: active ? 'rgba(18,74,87,0.1)' : 'transparent',
+        '&:hover': { bgcolor: 'rgba(18,74,87,0.12)' },
+      }}
+    >
+      <Icon size={16} />
+      {label}
+    </Button>
+  );
+}
 
 export default function Layout() {
   const navigate = useNavigate();
@@ -55,21 +104,21 @@ export default function Layout() {
         position="fixed"
         elevation={0}
         sx={{
-          bgcolor: '#124a57',
-          borderBottom: '1px solid rgba(255,255,255,0.1)',
+          bgcolor: '#eef1f2',
           zIndex: 1200,
         }}
       >
-        <Toolbar sx={{ minHeight: '56px !important', px: '24px !important', gap: 1 }}>
+        <Toolbar sx={{ minHeight: '70px !important', px: '22px !important', py: '11px !important', gap: 2 }}>
           {/* Logo */}
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mr: 3 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: '26px', mr: 2, flexShrink: 0 }}>
             <Typography
               sx={{
-                fontWeight: 700,
-                fontSize: '18px',
-                color: '#ffffff',
+                fontWeight: 500,
+                fontSize: '26px',
+                lineHeight: 1,
+                color: '#31a0e8',
                 whiteSpace: 'nowrap',
-                letterSpacing: '0.05em',
+                fontFamily: '"Noto Sans TC", sans-serif',
               }}
             >
               住通房管
@@ -78,15 +127,12 @@ export default function Layout() {
               sx={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: 0.5,
-                bgcolor: 'rgba(255,255,255,0.15)',
-                borderRadius: '12px',
-                px: 1,
-                py: 0.25,
+                gap: '4px',
+                height: '27px',
               }}
             >
-              <MdPeople size={14} color="#a0d4a8" />
-              <Typography sx={{ fontSize: '12px', color: '#a0d4a8', whiteSpace: 'nowrap' }}>
+              <MdGroups size={16} color="#124a57" />
+              <Typography sx={{ fontSize: '12px', fontWeight: 400, lineHeight: '16px', color: 'rgba(36,53,82,0.6)', whiteSpace: 'nowrap' }}>
                 12人在線
               </Typography>
             </Box>
@@ -96,43 +142,23 @@ export default function Layout() {
           <Box sx={{ flexGrow: 1 }} />
 
           {/* Navigation */}
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 2, minWidth: 0, overflowX: 'auto' }}>
             {navItems.map((item) => (
-              <Button
+              <TopNavButton
                 key={item.label}
+                label={item.label}
+                icon={item.icon}
                 onClick={item.path ? () => navigate(item.path!) : undefined}
-                sx={{
-                  color: 'rgba(255,255,255,0.75)',
-                  fontSize: '14px',
-                  fontWeight: 400,
-                  px: 1.5,
-                  py: 0.75,
-                  minWidth: 'auto',
-                  borderRadius: '6px',
-                  '&:hover': { color: '#ffffff', bgcolor: 'rgba(255,255,255,0.1)' },
-                }}
-              >
-                {item.label}
-              </Button>
+              />
             ))}
 
             {/* 包租代管 Dropdown */}
-            <Button
+            <TopNavButton
+              label="包租代管"
+              icon={MdHandshake}
+              active={isRentalActive}
               onClick={handleRentalMenuOpen}
-              sx={{
-                color: isRentalActive ? '#ffffff' : 'rgba(255,255,255,0.75)',
-                fontSize: '14px',
-                fontWeight: isRentalActive ? 600 : 400,
-                px: 1.5,
-                py: 0.75,
-                minWidth: 'auto',
-                borderRadius: '6px',
-                bgcolor: isRentalActive ? 'rgba(255,255,255,0.15)' : 'transparent',
-                '&:hover': { color: '#ffffff', bgcolor: 'rgba(255,255,255,0.1)' },
-              }}
-            >
-              包租代管
-            </Button>
+            />
 
             <Menu
               anchorEl={anchorEl}
@@ -143,7 +169,7 @@ export default function Layout() {
               slotProps={{
                 paper: {
                   sx: {
-                    mt: 0.5,
+                    mt: 1,
                     borderRadius: '8px',
                     boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
                     minWidth: '160px',
@@ -164,7 +190,7 @@ export default function Layout() {
                     '&.Mui-selected': {
                       bgcolor: 'rgba(49,160,232,0.12)',
                       color: '#31a0e8',
-                      fontWeight: 600,
+                      fontWeight: 500,
                     },
                     '&:hover': { bgcolor: 'rgba(49,160,232,0.08)' },
                   }}
@@ -177,22 +203,23 @@ export default function Layout() {
             {/* Avatar */}
             <Avatar
               sx={{
-                width: 32,
-                height: 32,
+                width: 38,
+                height: 38,
                 ml: 1,
-                bgcolor: '#31a0e8',
-                fontSize: '14px',
+                bgcolor: '#81d394',
+                color: '#124a57',
+                fontSize: '18px',
                 cursor: 'pointer',
               }}
             >
-              管
+              <MdPerson size={20} />
             </Avatar>
           </Box>
         </Toolbar>
       </AppBar>
 
       {/* Page content */}
-      <Box sx={{ pt: '56px', flexGrow: 1 }}>
+      <Box sx={{ pt: '70px', flexGrow: 1 }}>
         <Outlet />
       </Box>
     </Box>

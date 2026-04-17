@@ -8,6 +8,7 @@ import ActiveRentalInspectionPage from './pages/active-rentals/ActiveRentalInspe
 import ActiveRentalTenantPage from './pages/active-rentals/ActiveRentalTenantPage';
 import ActiveRentalContractPage from './pages/active-rentals/ActiveRentalContractPage';
 import ActiveRentalAutoFillPage from './pages/active-rentals/ActiveRentalAutoFillPage';
+import HostPage from './pages/host/HostPage';
 
 export const routes: RouteObject[] = [
   {
@@ -16,6 +17,7 @@ export const routes: RouteObject[] = [
     children: [
       { index: true, element: <Navigate to="/active-rentals" replace /> },
       { path: 'active-rentals', element: <ActiveRentalsPage /> },
+      { path: 'host', element: <HostPage /> },
       {
         path: 'active-rentals/:id',
         element: <ActiveRentalsLayout />,

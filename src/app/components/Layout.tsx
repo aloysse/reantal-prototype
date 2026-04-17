@@ -38,7 +38,10 @@ const navItems: { label: string; path?: string; icon: IconType }[] = [
 ];
 
 const rentalMenuItems = [
-  { label: '委託出租物件', path: '/properties' },
+  { label: '業者資料', path: '/host' },
+  { label: '出租人'},
+  { label: '承租人'},
+  { label: '委託出租物件' },
   { label: '出租中物件', path: '/active-rentals' },
 ];
 

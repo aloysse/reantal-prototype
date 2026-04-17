@@ -143,13 +143,62 @@ export interface Tenant {
   phone: string;
   idNumber: string;
   email: string;
+  gender?: 'male' | 'female';
+  dob?: string;
+  dayPhone?: string;
+  nightPhone?: string;
+  idCardFrontImage?: string;
+  idCardBackImage?: string;
+  domicileAddress?: LandlordAddress;
+  mailingAddress?: LandlordAddress;
+  bankbookImage?: string;
+  bankAccountName?: string;
+  bankIdNumber?: string;
+  bankCode?: string;
+  bankBranchName?: string;
+  bankBranchCode?: string;
+  bankAccountNo?: string;
+  householdRegisterImage?: string;
+  spouseHouseholdRegisterImage?: string;
+  applicantHouseholdName?: string;
+  applicantRelation?: string;
+  spouseHouseholdNo?: string;
+  childrenCount?: number;
+  familyMembers?: {
+    id: string;
+    name: string;
+    idNumber: string;
+    dob: string;
+    relation: string;
+    identityType: string;
+  }[];
+  propertyHoldings?: {
+    id: string;
+    holder: string;
+    address: string;
+    totalArea: string;
+    shareRatio: string;
+    shareArea: string;
+    familyRegistered: boolean;
+  }[];
 }
 
-export interface ContractDocument {
+export type DocumentCategory = '申請書' | '費用補助' | '契約' | '其他';
+
+export interface DocumentType {
   id: string;
-  type: 'social-rental-contract' | 'tenant-application';
-  title: string;
-  content: string;
+  name: string;
+  category: DocumentCategory;
+  icon: 'task' | 'quote' | 'description' | 'file';
+}
+
+export interface ContractDocumentItem {
+  id: string;
+  typeId: string;
+  propertyId: string;
+  createdAt: string;
+  rentStart?: string;
+  rentEnd?: string;
 }
 
 // ========== 出租人資料 ==========
@@ -301,6 +350,55 @@ export const tenants: Tenant[] = [
     phone: '0956-111-222',
     idNumber: 'D456789012',
     email: 'zhang@example.com',
+    gender: 'male',
+    dob: '1987-03-13',
+    dayPhone: '02-2272-8899',
+    nightPhone: '02-2272-7788',
+    domicileAddress: {
+      zip: '220',
+      city: '新北市',
+      district: '板橋區',
+      street: '中山路二段',
+      detail: '88號5樓',
+    },
+    mailingAddress: {
+      zip: '220',
+      city: '新北市',
+      district: '板橋區',
+      street: '中山路二段',
+      detail: '88號5樓',
+    },
+    bankAccountName: '張小華',
+    bankIdNumber: 'D456789012',
+    bankCode: '004',
+    bankBranchName: '板橋分行',
+    bankBranchCode: '0041221',
+    bankAccountNo: '123456789012',
+    applicantHouseholdName: '張家戶',
+    applicantRelation: '本人',
+    spouseHouseholdNo: '無',
+    childrenCount: 1,
+    familyMembers: [
+      {
+        id: 'fm001',
+        name: '沈晶譁',
+        idNumber: 'K999789456',
+        dob: '78-13-13',
+        relation: '本人',
+        identityType: '一般身分別',
+      },
+    ],
+    propertyHoldings: [
+      {
+        id: 'ph001',
+        holder: '羅罐瘋',
+        address: '屏東縣潮州鎮金大路300號',
+        totalArea: '200',
+        shareRatio: '3/3',
+        shareArea: '200',
+        familyRegistered: true,
+      },
+    ],
   },
   {
     id: 't002',
@@ -308,6 +406,29 @@ export const tenants: Tenant[] = [
     phone: '0967-222-333',
     idNumber: 'E567890123',
     email: 'li@example.com',
+    gender: 'female',
+    dob: '1990-09-02',
+    dayPhone: '02-2955-6633',
+    domicileAddress: {
+      zip: '220',
+      city: '新北市',
+      district: '板橋區',
+      street: '文化路一段',
+      detail: '123號8樓',
+    },
+    mailingAddress: {
+      zip: '220',
+      city: '新北市',
+      district: '板橋區',
+      street: '文化路一段',
+      detail: '123號8樓',
+    },
+    bankAccountName: '李秀英',
+    bankIdNumber: 'E567890123',
+    bankCode: '013',
+    bankBranchName: '板橋分行',
+    bankBranchCode: '0130038',
+    bankAccountNo: '987654321000',
   },
   {
     id: 't003',
@@ -315,6 +436,53 @@ export const tenants: Tenant[] = [
     phone: '0978-333-444',
     idNumber: 'F678901234',
     email: 'huang@example.com',
+    gender: 'male',
+    dob: '1982-11-20',
+    dayPhone: '02-2966-5544',
+    nightPhone: '02-2966-1122',
+    domicileAddress: {
+      zip: '220',
+      city: '新北市',
+      district: '板橋區',
+      street: '四川路二段',
+      detail: '47巷3樓',
+    },
+    mailingAddress: {
+      zip: '220',
+      city: '新北市',
+      district: '板橋區',
+      street: '四川路二段',
+      detail: '47巷3樓',
+    },
+    bankAccountName: '黃建國',
+    bankIdNumber: 'F678901234',
+    bankCode: '822',
+    bankBranchName: '板橋分行',
+    bankBranchCode: '8220089',
+    bankAccountNo: '001122334455',
+    applicantHouseholdName: '黃家戶',
+    applicantRelation: '戶長',
+    spouseHouseholdNo: 'A22000001',
+    childrenCount: 2,
+    familyMembers: [
+      {
+        id: 'fm003',
+        name: '黃小明',
+        idNumber: 'N123456789',
+        dob: '95-08-19',
+        relation: '子女',
+        identityType: '一般身分別',
+      },
+      {
+        id: 'fm004',
+        name: '黃小美',
+        idNumber: 'N223456789',
+        dob: '97-10-04',
+        relation: '子女',
+        identityType: '一般身分別',
+      },
+    ],
+    propertyHoldings: [],
   },
 ];
 
@@ -406,7 +574,6 @@ export const properties: Property[] = [
     floor: '7F / 12F',
     layout: '一房一廳',
     buildingType: '公寓',
-    tenantId: 't002',
     statusTags: [
       { date: '2025-05-13', label: '第五期 更新' },
       { date: '2025-05-12', label: '第五期 提出' },
@@ -681,7 +848,6 @@ export const properties: Property[] = [
     layout: '一房一廳',
     buildingType: '華廈',
     landlordId: 'l003',
-    tenantId: 't002',
     periodLabel: '社宅第五期 1040101',
     statusTags: [
       { date: '2025-06-10', label: '第五期 更新' },
@@ -809,42 +975,47 @@ export const propertyInspections: PropertyInspection[] = [
   },
 ];
 
-// ========== 契約文件 ==========
+// ========== 文件類型 ==========
 
-export const contractDocuments: ContractDocument[] = [
-  {
-    id: 'cd001',
-    type: 'social-rental-contract',
-    title: '社宅轉租契約書',
-    content: `社會住宅轉租契約書
+export const documentTypes: DocumentType[] = [
+  // 申請書
+  { id: 'dt1', name: '表單1.出租人出租住宅申請書 + 表單2.屋況及租屋安全檢核表', category: '申請書', icon: 'task' },
+  { id: 'dt2', name: '表單5.民眾(房客)承租住宅申請書', category: '申請書', icon: 'task' },
+  // 費用補助
+  { id: 'dt3', name: '表單3.出租人補助費用申請書', category: '費用補助', icon: 'quote' },
+  { id: 'dt4', name: '表單6.承租人補助費用申請書', category: '費用補助', icon: 'quote' },
+  { id: 'dt5', name: '表單8.業者服務補助費用申請書', category: '費用補助', icon: 'quote' },
+  { id: 'dt6', name: '表單21.換居戶補助費用申請書', category: '費用補助', icon: 'quote' },
+  // 契約
+  { id: 'dt7', name: '社會住宅-包租契約書', category: '契約', icon: 'description' },
+  { id: 'dt8', name: '社會住宅-轉租契約書', category: '契約', icon: 'description' },
+  // 其他
+  { id: 'dt9', name: '附表單1.估價師租金簽註意見書', category: '其他', icon: 'file' },
+  { id: 'dt10', name: '附表單2.代理人授權書', category: '其他', icon: 'file' },
+  { id: 'dt11', name: '附表單3.共有住宅代表人授權書', category: '其他', icon: 'file' },
+];
 
-立契約書人：
-出租人（甲方）：住通房管股份有限公司
-承租人（乙方）：_______________
+// ========== 契約文件清單 ==========
 
-一、租賃標的物：台北市___區___路___號___樓
-二、租賃期間：自___年___月___日起至___年___月___日止
-三、租金：每月新台幣___元整
-四、押金：新台幣___元整（相當___個月租金）
+export const contractDocumentItems: ContractDocumentItem[] = [
+  // p001 — 申請書 + 費用補助 + 契約 + 其他
+  { id: 'cdi001', typeId: 'dt1',  propertyId: 'p001', createdAt: '2026-03-05' },
+  { id: 'cdi002', typeId: 'dt3',  propertyId: 'p001', createdAt: '2026-03-08' },
+  { id: 'cdi003', typeId: 'dt7',  propertyId: 'p001', createdAt: '2026-03-05', rentStart: '2026-04-01', rentEnd: '2028-03-31' },
+  { id: 'cdi004', typeId: 'dt9',  propertyId: 'p001', createdAt: '2026-03-10' },
+  { id: 'cdi005', typeId: 'dt10', propertyId: 'p001', createdAt: '2026-03-10' },
 
-（以下略）`,
-  },
-  {
-    id: 'cd002',
-    type: 'tenant-application',
-    title: '承租人申請書',
-    content: `承租人申請書
+  // p002 — 申請書 + 費用補助
+  { id: 'cdi006', typeId: 'dt1',  propertyId: 'p002', createdAt: '2026-02-20' },
+  { id: 'cdi007', typeId: 'dt4',  propertyId: 'p002', createdAt: '2026-02-22' },
+  { id: 'cdi008', typeId: 'dt5',  propertyId: 'p002', createdAt: '2026-02-22' },
 
-申請人：_______________
-身分證字號：_______________
-聯絡電話：_______________
-現居地址：_______________
+  // p003 — 契約 + 其他
+  { id: 'cdi009', typeId: 'dt7',  propertyId: 'p003', createdAt: '2026-01-15', rentStart: '2026-02-01', rentEnd: '2027-01-31' },
+  { id: 'cdi010', typeId: 'dt11', propertyId: 'p003', createdAt: '2026-01-18' },
 
-申請承租物件：_______________
-申請日期：___年___月___日
-
-本人確認以上資料均屬實，如有虛偽不實，願負法律責任。
-
-申請人簽章：_______________`,
-  },
+  // p004 — 申請書 + 費用補助 + 其他
+  { id: 'cdi011', typeId: 'dt1',  propertyId: 'p004', createdAt: '2026-03-01' },
+  { id: 'cdi012', typeId: 'dt6',  propertyId: 'p004', createdAt: '2026-03-03' },
+  { id: 'cdi013', typeId: 'dt9',  propertyId: 'p004', createdAt: '2026-03-05' },
 ];

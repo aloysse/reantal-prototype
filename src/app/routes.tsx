@@ -6,6 +6,7 @@ import ActiveRentalDetailPage from './pages/active-rentals/ActiveRentalDetailPag
 import ActiveRentalLandlordPage from './pages/active-rentals/ActiveRentalLandlordPage';
 import ActiveRentalInspectionPage from './pages/active-rentals/ActiveRentalInspectionPage';
 import ActiveRentalTenantPage from './pages/active-rentals/ActiveRentalTenantPage';
+import ActiveRentalContractPage from './pages/active-rentals/ActiveRentalContractPage';
 
 export const routes: RouteObject[] = [
   {
@@ -22,6 +23,7 @@ export const routes: RouteObject[] = [
           { path: 'landlord', element: <ActiveRentalLandlordPage /> },
           { path: 'inspection', element: <ActiveRentalInspectionPage /> },
           { path: 'tenant', element: <ActiveRentalTenantPage /> },
+          { path: 'contract', element: <ActiveRentalContractPage /> },
         ],
       },
     ],

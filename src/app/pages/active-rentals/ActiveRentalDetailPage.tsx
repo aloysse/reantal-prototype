@@ -1,9 +1,8 @@
 import { useState, useRef } from 'react';
-import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import {
   Box,
   Typography,
-  Fab,
   IconButton,
   TextField,
   Select,
@@ -15,9 +14,6 @@ import {
   OutlinedInput,
 } from '@mui/material';
 import {
-  MdArrowUpward,
-  MdSave,
-  MdArrowForwardIos,
   MdExpandMore,
   MdExpandLess,
   MdFileUpload,
@@ -281,7 +277,6 @@ function SectionCard({ title, children }: { title: string; children: React.React
 
 export default function ActiveRentalDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const isNew = id === 'new';
 
@@ -618,57 +613,6 @@ export default function ActiveRentalDetailPage() {
         </Box>
       </Box>
 
-      {/* ── 底部 FAB 區域 ── */}
-      <Box sx={{ position: 'fixed', bottom: 32, right: 40, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 2 }}>
-        {/* 捲動至頂 */}
-        <Fab
-          color="primary"
-          size="medium"
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          sx={{ bgcolor: '#31a0e8', boxShadow: '0px 1px 18px rgba(0,0,0,0.12), 0px 6px 10px rgba(0,0,0,0.14), 0px 3px 5px -1px rgba(0,0,0,0.2)' }}
-        >
-          <MdArrowUpward size={24} />
-        </Fab>
-        {/* 儲存 */}
-        <Fab
-          variant="extended"
-          sx={{
-            bgcolor: '#ffffff',
-            color: '#31a0e8',
-            fontWeight: 500,
-            fontSize: '15px',
-            letterSpacing: '0.46px',
-            textTransform: 'uppercase',
-            px: 2,
-            gap: 1,
-            boxShadow: '0px 1px 18px rgba(0,0,0,0.12), 0px 6px 10px rgba(0,0,0,0.14), 0px 3px 5px -1px rgba(0,0,0,0.2)',
-            '&:hover': { bgcolor: 'rgba(49,160,232,0.06)' },
-          }}
-        >
-          儲存
-          <MdSave size={22} />
-        </Fab>
-        {/* 出租人資料 → */}
-        <Fab
-          variant="extended"
-          onClick={() => navigate(`/active-rentals/${id}/landlord`)}
-          sx={{
-            bgcolor: '#31a0e8',
-            color: '#ffffff',
-            fontWeight: 500,
-            fontSize: '15px',
-            letterSpacing: '0.46px',
-            textTransform: 'uppercase',
-            px: 2,
-            gap: 1,
-            boxShadow: '0px 1px 18px rgba(0,0,0,0.12), 0px 6px 10px rgba(0,0,0,0.14), 0px 3px 5px -1px rgba(0,0,0,0.2)',
-            '&:hover': { bgcolor: '#2090d8' },
-          }}
-        >
-          出租人資料
-          <MdArrowForwardIos size={18} />
-        </Fab>
-      </Box>
     </Box>
   );
 }

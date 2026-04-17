@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
   Dialog,
   DialogContent,
@@ -18,6 +17,11 @@ type Step = 'rental-type' | 'social-type' | 'social-period';
 interface Props {
   open: boolean;
   onClose: () => void;
+  onCreate: (payload: {
+    rentalType: RentalType;
+    socialType?: SocialType;
+    period?: string;
+  }) => void;
 }
 
 const socialPeriods = [
@@ -87,8 +91,7 @@ function ToggleGroup<T extends string>({
   );
 }
 
-export default function AddRentalModal({ open, onClose }: Props) {
-  const navigate = useNavigate();
+export default function AddRentalModal({ open, onClose, onCreate }: Props) {
   const [step, setStep] = useState<Step>('rental-type');
   const [rentalType, setRentalType] = useState<RentalType>('social');
   const [socialType, setSocialType] = useState<SocialType>('baozhu');
@@ -188,7 +191,10 @@ export default function AddRentalModal({ open, onClose }: Props) {
                   <Button
                     variant="contained"
                     startIcon={<MdCheckCircle size={16} />}
-                    onClick={() => { navigate('/active-rentals/new?type=general'); handleClose(); }}
+                    onClick={() => {
+                      onCreate({ rentalType: 'general' });
+                      handleClose();
+                    }}
                     sx={primaryBtnSx}
                   >
                     新增
@@ -324,7 +330,14 @@ export default function AddRentalModal({ open, onClose }: Props) {
                 <Button
                   variant="contained"
                   startIcon={<MdCheckCircle size={16} />}
-                  onClick={() => { navigate(`/active-rentals/new?type=social&socialType=${socialType}&period=${selectedPeriod}`); handleClose(); }}
+                  onClick={() => {
+                    onCreate({
+                      rentalType: 'social',
+                      socialType,
+                      period: selectedPeriod,
+                    });
+                    handleClose();
+                  }}
                   sx={primaryBtnSx}
                 >
                   新增

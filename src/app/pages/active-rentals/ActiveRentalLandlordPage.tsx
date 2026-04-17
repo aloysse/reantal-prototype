@@ -1,9 +1,8 @@
 import { useState, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import {
   Box,
   Typography,
-  Fab,
   IconButton,
   TextField,
   Select,
@@ -17,10 +16,6 @@ import {
   Chip,
 } from '@mui/material';
 import {
-  MdArrowBackIosNew,
-  MdArrowUpward,
-  MdSave,
-  MdArrowForwardIos,
   MdExpandMore,
   MdExpandLess,
   MdFileUpload,
@@ -41,6 +36,7 @@ import {
   type LandlordAddress,
   type LandlordAgent,
   type LandlordPersonType,
+  type PropertyType,
 } from '../../data/mockData';
 
 // ─── 常數 ────────────────────────────────────────────────────────────────────
@@ -904,11 +900,14 @@ function LandlordAgentCard({
 
 export default function ActiveRentalLandlordPage() {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const property = properties.find(p => p.id === id);
-  const isSocial = property?.type === 'social';
   const isNew = id === 'new';
+  const propertyType: PropertyType = isNew
+    ? (searchParams.get('type') as PropertyType ?? 'social')
+    : (property?.type ?? 'social');
+  const isSocial = propertyType === 'social';
 
   const initialLandlord = isNew ? null : (landlords.find(l => l.id === property?.landlordId) ?? null);
   const [currentLandlord, setCurrentLandlord] = useState<Landlord | null>(initialLandlord);
@@ -916,8 +915,6 @@ export default function ActiveRentalLandlordPage() {
   const [showSelectModal, setShowSelectModal] = useState(false);
 
   const hasLandlord = !!currentLandlord;
-
-  const nextLabel = isSocial ? '屋況檢索' : '承租人資料';
 
   const handleSelectExisting = (landlord: Landlord) => {
     setCurrentLandlord({ ...landlord });
@@ -1016,81 +1013,6 @@ export default function ActiveRentalLandlordPage() {
           </Box>
         )}
 
-      </Box>
-
-      {/* ── 底部 FAB ── */}
-      {/* 左側：上一步 */}
-      <Box sx={{ position: 'fixed', bottom: 68, left: 110 }}>
-        <Fab
-          variant="extended"
-          onClick={() => navigate(`/active-rentals/${id}`)}
-          sx={{
-            bgcolor: '#31a0e8',
-            color: '#fff',
-            fontWeight: 500,
-            fontSize: '15px',
-            letterSpacing: '0.46px',
-            px: 2,
-            gap: 1,
-            boxShadow: '0px 1px 18px rgba(0,0,0,0.12), 0px 6px 10px rgba(0,0,0,0.14), 0px 3px 5px -1px rgba(0,0,0,0.2)',
-            '&:hover': { bgcolor: '#2090d8' },
-          }}
-        >
-          <MdArrowBackIosNew size={18} />
-          物件資料
-        </Fab>
-      </Box>
-
-      {/* 右側：捲頂 + 儲存 + 下一步 */}
-      <Box sx={{ position: 'fixed', bottom: 68, right: 110, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 2 }}>
-        <Fab
-          color="primary"
-          size="medium"
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          sx={{ bgcolor: '#31a0e8', boxShadow: '0px 1px 18px rgba(0,0,0,0.12), 0px 6px 10px rgba(0,0,0,0.14), 0px 3px 5px -1px rgba(0,0,0,0.2)' }}
-        >
-          <MdArrowUpward size={24} />
-        </Fab>
-        <Fab
-          variant="extended"
-          sx={{
-            bgcolor: '#ffffff',
-            color: '#31a0e8',
-            fontWeight: 500,
-            fontSize: '15px',
-            letterSpacing: '0.46px',
-            textTransform: 'uppercase',
-            px: 2,
-            gap: 1,
-            boxShadow: '0px 1px 18px rgba(0,0,0,0.12), 0px 6px 10px rgba(0,0,0,0.14), 0px 3px 5px -1px rgba(0,0,0,0.2)',
-            '&:hover': { bgcolor: 'rgba(49,160,232,0.06)' },
-          }}
-        >
-          儲存
-          <MdSave size={22} />
-        </Fab>
-        <Fab
-          variant="extended"
-          onClick={() => navigate(isSocial
-            ? `/active-rentals/${id}/inspection`
-            : `/active-rentals/${id}/tenant`
-          )}
-          sx={{
-            bgcolor: '#31a0e8',
-            color: '#ffffff',
-            fontWeight: 500,
-            fontSize: '15px',
-            letterSpacing: '0.46px',
-            textTransform: 'uppercase',
-            px: 2,
-            gap: 1,
-            boxShadow: '0px 1px 18px rgba(0,0,0,0.12), 0px 6px 10px rgba(0,0,0,0.14), 0px 3px 5px -1px rgba(0,0,0,0.2)',
-            '&:hover': { bgcolor: '#2090d8' },
-          }}
-        >
-          {nextLabel}
-          <MdArrowForwardIos size={18} />
-        </Fab>
       </Box>
 
       {/* ── Modals ── */}

@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import {
   Box,
   Typography,
-  Fab,
   Button,
   TextField,
   Select,
@@ -19,8 +18,6 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import {
-  MdArrowBackIosNew,
-  MdArrowUpward,
   MdCheck,
   MdAddCircle,
 } from 'react-icons/md';
@@ -1331,10 +1328,7 @@ export default function ActiveRentalInspectionPage() {
                 </StepLabel>
                 <StepContent
                   sx={{
-                    borderLeft: 'none',
-                    ml: '15px',
-                    pl: 3,
-                    py: 1.5,
+                    borderLeft: `1px solid ${COLOR.info}`,
                   }}
                 >
                   <Box sx={{ pl: 1, pt: 1 }}>
@@ -1367,40 +1361,6 @@ export default function ActiveRentalInspectionPage() {
 
       </Box>
 
-      {/* ── 底部 FAB ── */}
-      {/* 左側：出租人資料 */}
-      <Box sx={{ position: 'fixed', bottom: 68, left: 110 }}>
-        <Fab
-          variant="extended"
-          onClick={() => navigate(`/active-rentals/${id}/landlord`)}
-          sx={{
-            bgcolor: COLOR.primary,
-            color: COLOR.white,
-            fontWeight: 500,
-            fontSize: '15px',
-            letterSpacing: '0.46px',
-            px: 2,
-            gap: 1,
-            boxShadow: '0px 1px 18px rgba(0,0,0,0.12), 0px 6px 10px rgba(0,0,0,0.14), 0px 3px 5px -1px rgba(0,0,0,0.2)',
-            '&:hover': { bgcolor: '#2090d8' },
-          }}
-        >
-          <MdArrowBackIosNew size={18} />
-          出租人資料
-        </Fab>
-      </Box>
-
-      {/* 右側：捲頂 + 儲存 */}
-      <Box sx={{ position: 'fixed', bottom: 68, right: 110, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 2 }}>
-        <Fab
-          color="primary"
-          size="medium"
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          sx={{ bgcolor: COLOR.primary, boxShadow: '0px 1px 18px rgba(0,0,0,0.12), 0px 6px 10px rgba(0,0,0,0.14), 0px 3px 5px -1px rgba(0,0,0,0.2)' }}
-        >
-          <MdArrowUpward size={24} />
-        </Fab>
-      </Box>
     </Box>
   );
 }

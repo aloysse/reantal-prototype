@@ -99,6 +99,24 @@ export default function ActiveRentalsPage() {
   const [keyword, setKeyword] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
 
+  const handleCreateRental = (payload: {
+    rentalType: 'general' | 'social';
+    socialType?: 'baozhu' | 'daizu';
+    period?: string;
+  }) => {
+    if (payload.rentalType === 'general') {
+      navigate('/active-rentals/new?type=general');
+      return;
+    }
+
+    const params = new URLSearchParams({
+      type: 'social',
+      socialType: payload.socialType ?? 'baozhu',
+      period: payload.period ?? 'p5',
+    });
+    navigate(`/active-rentals/new?${params.toString()}`);
+  };
+
   const totalPages = Math.ceil(activeProperties.length / ROWS_PER_PAGE);
   const paginatedItems = activeProperties.slice(
     (page - 1) * ROWS_PER_PAGE,
@@ -433,7 +451,11 @@ export default function ActiveRentalsPage() {
         </Box>
       </Box>
 
-      <AddRentalModal open={modalOpen} onClose={() => setModalOpen(false)} />
+      <AddRentalModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onCreate={handleCreateRental}
+      />
     </Box>
   );
 }

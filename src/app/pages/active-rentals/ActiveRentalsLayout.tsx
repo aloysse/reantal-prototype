@@ -1,6 +1,6 @@
 import { useParams, useNavigate, useLocation, useSearchParams, Outlet } from 'react-router-dom';
 import { Box, Fab, Typography } from '@mui/material';
-import { MdArrowBack } from 'react-icons/md';
+import { MdArrowBack, MdArrowBackIosNew, MdArrowForwardIos, MdArrowUpward, MdSave } from 'react-icons/md';
 import { properties } from '../../data/mockData';
 import type { PropertyType } from '../../data/mockData';
 
@@ -20,6 +20,20 @@ const GENERAL_STEPS = [
   { number: 2, label: '出租人資料' },
   { number: 4, label: '承租人資料' },
   { number: 5, label: '契約文件' },
+];
+
+const SOCIAL_ROUTE_STEPS = [
+  { path: '', label: '物件資料', showSave: true },
+  { path: 'landlord', label: '出租人資料', showSave: true },
+  { path: 'inspection', label: '屋況調查', showSave: false },
+  { path: 'tenant', label: '承租人資料', showSave: false },
+  { path: 'contract', label: '契約文件', showSave: false },
+];
+
+const GENERAL_ROUTE_STEPS = [
+  { path: '', label: '物件資料', showSave: true },
+  { path: 'landlord', label: '出租人資料', showSave: true },
+  { path: 'tenant', label: '承租人資料', showSave: false },
 ];
 
 const PERIOD_LABEL_MAP: Record<string, string> = {
@@ -168,6 +182,7 @@ function StepsBar({
 
 export default function ActiveRentalsLayout() {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
 
@@ -189,6 +204,17 @@ export default function ActiveRentalsLayout() {
     : (property?.periodLabel ?? null);
 
   const steps = propertyType === 'social' ? SOCIAL_STEPS : GENERAL_STEPS;
+  const routeSteps = propertyType === 'social' ? SOCIAL_ROUTE_STEPS : GENERAL_ROUTE_STEPS;
+  const currentRouteStepIndex = routeSteps.findIndex(step => step.path === subPath);
+  const safeCurrentIndex = currentRouteStepIndex >= 0 ? currentRouteStepIndex : 0;
+  const prevRouteStep = safeCurrentIndex > 0 ? routeSteps[safeCurrentIndex - 1] : null;
+  const nextRouteStep = safeCurrentIndex < routeSteps.length - 1 ? routeSteps[safeCurrentIndex + 1] : null;
+  const shouldShowSave = routeSteps[safeCurrentIndex]?.showSave ?? false;
+
+  const toDetailPath = (path: string) => {
+    if (!id) return '/active-rentals';
+    return path ? `/active-rentals/${id}/${path}` : `/active-rentals/${id}`;
+  };
 
   return (
     <>
@@ -216,6 +242,98 @@ export default function ActiveRentalsLayout() {
       {/* 內容區（補上次導覽列的高度） */}
       <Box sx={{ pt: `${STEPS_BAR_HEIGHT}px` }}>
         <Outlet />
+      </Box>
+
+      {/* 共用 FAB（上下頁 + 捲頂 + 儲存） */}
+      {prevRouteStep && (
+        <Box sx={{ position: 'fixed', bottom: 68, left: 110, zIndex: 1200 }}>
+          <Fab
+            variant="extended"
+            onClick={() => navigate(toDetailPath(prevRouteStep.path))}
+            sx={{
+              bgcolor: '#31a0e8',
+              color: '#fff',
+              fontWeight: 500,
+              fontSize: '15px',
+              letterSpacing: '0.46px',
+              px: 2,
+              gap: 1,
+              boxShadow: '0px 1px 18px rgba(0,0,0,0.12), 0px 6px 10px rgba(0,0,0,0.14), 0px 3px 5px -1px rgba(0,0,0,0.2)',
+              '&:hover': { bgcolor: '#2090d8' },
+            }}
+          >
+            <MdArrowBackIosNew size={18} />
+            {prevRouteStep.label}
+          </Fab>
+        </Box>
+      )}
+
+      <Box
+        sx={{
+          position: 'fixed',
+          bottom: 68,
+          right: 110,
+          zIndex: 1200,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-end',
+          gap: 2,
+        }}
+      >
+        <Fab
+          color="primary"
+          size="medium"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          sx={{
+            bgcolor: '#31a0e8',
+            boxShadow: '0px 1px 18px rgba(0,0,0,0.12), 0px 6px 10px rgba(0,0,0,0.14), 0px 3px 5px -1px rgba(0,0,0,0.2)',
+          }}
+        >
+          <MdArrowUpward size={24} />
+        </Fab>
+
+        {shouldShowSave && (
+          <Fab
+            variant="extended"
+            sx={{
+              bgcolor: '#ffffff',
+              color: '#31a0e8',
+              fontWeight: 500,
+              fontSize: '15px',
+              letterSpacing: '0.46px',
+              textTransform: 'uppercase',
+              px: 2,
+              gap: 1,
+              boxShadow: '0px 1px 18px rgba(0,0,0,0.12), 0px 6px 10px rgba(0,0,0,0.14), 0px 3px 5px -1px rgba(0,0,0,0.2)',
+              '&:hover': { bgcolor: 'rgba(49,160,232,0.06)' },
+            }}
+          >
+            儲存
+            <MdSave size={22} />
+          </Fab>
+        )}
+
+        {nextRouteStep && (
+          <Fab
+            variant="extended"
+            onClick={() => navigate(toDetailPath(nextRouteStep.path))}
+            sx={{
+              bgcolor: '#31a0e8',
+              color: '#ffffff',
+              fontWeight: 500,
+              fontSize: '15px',
+              letterSpacing: '0.46px',
+              textTransform: 'uppercase',
+              px: 2,
+              gap: 1,
+              boxShadow: '0px 1px 18px rgba(0,0,0,0.12), 0px 6px 10px rgba(0,0,0,0.14), 0px 3px 5px -1px rgba(0,0,0,0.2)',
+              '&:hover': { bgcolor: '#2090d8' },
+            }}
+          >
+            {nextRouteStep.label}
+            <MdArrowForwardIos size={18} />
+          </Fab>
+        )}
       </Box>
     </>
   );

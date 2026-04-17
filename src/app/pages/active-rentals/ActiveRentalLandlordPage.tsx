@@ -38,6 +38,7 @@ import {
   type LandlordPersonType,
   type PropertyType,
 } from '../../data/mockData';
+import SectionCard from '../../components/SectionCard';
 
 // ─── 常數 ────────────────────────────────────────────────────────────────────
 
@@ -267,52 +268,6 @@ function AddressFields({
           }}
         />
       </Box>
-    </Box>
-  );
-}
-
-// ─── SectionCard ─────────────────────────────────────────────────────────────
-
-function SectionCard({
-  title,
-  children,
-  isGreen,
-  defaultExpanded = true,
-}: {
-  title: string;
-  children: React.ReactNode;
-  isGreen?: boolean;
-  defaultExpanded?: boolean;
-}) {
-  const [expanded, setExpanded] = useState(defaultExpanded);
-  return (
-    <Box
-      sx={{
-        p: 4,
-        borderRadius: '16px',
-        boxShadow: '1px 3px 7px 0px rgba(17,28,45,0.18)',
-        bgcolor: isGreen ? '#fafffb' : '#fafafa',
-        border: isGreen ? '1px solid #81d394' : 'none',
-        width: '100%',
-      }}
-    >
-      {/* 標題列 */}
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: expanded ? 3 : 0 }}>
-        <Box sx={{
-          display: 'flex',
-          alignItems: 'center',
-          borderLeft: `8px solid ${isGreen ? '#81d394' : '#31a0e8'}`,
-          pl: 2,
-        }}>
-          <Typography sx={{ fontSize: '24px', fontWeight: 500, color: '#124a57', lineHeight: 1.167 }}>
-            {title}
-          </Typography>
-        </Box>
-        <IconButton size="small" onClick={() => setExpanded(e => !e)}>
-          {expanded ? <MdExpandLess size={22} /> : <MdExpandMore size={22} />}
-        </IconButton>
-      </Box>
-      {expanded && children}
     </Box>
   );
 }

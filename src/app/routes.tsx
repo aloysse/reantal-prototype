@@ -7,6 +7,7 @@ import ActiveRentalLandlordPage from './pages/active-rentals/ActiveRentalLandlor
 import ActiveRentalInspectionPage from './pages/active-rentals/ActiveRentalInspectionPage';
 import ActiveRentalTenantPage from './pages/active-rentals/ActiveRentalTenantPage';
 import ActiveRentalContractPage from './pages/active-rentals/ActiveRentalContractPage';
+import ActiveRentalAutoFillPage from './pages/active-rentals/ActiveRentalAutoFillPage';
 
 export const routes: RouteObject[] = [
   {
@@ -24,6 +25,7 @@ export const routes: RouteObject[] = [
           { path: 'inspection', element: <ActiveRentalInspectionPage /> },
           { path: 'tenant', element: <ActiveRentalTenantPage /> },
           { path: 'contract', element: <ActiveRentalContractPage /> },
+          { path: 'auto-fill', element: <ActiveRentalAutoFillPage /> },
         ],
       },
     ],

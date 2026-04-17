@@ -11,8 +11,6 @@ import {
 import {
   MdAdd,
   MdAutoFixHigh,
-  MdExpandLess,
-  MdExpandMore,
   MdFileUpload,
   MdOutlineCheck,
   MdEdit,
@@ -21,6 +19,7 @@ import {
   MdClose,
 } from 'react-icons/md';
 import { properties, tenants, type LandlordAddress, type Tenant } from '../../data/mockData';
+import SectionCard from '../../components/SectionCard';
 
 const CITY_OPTIONS = ['台北市', '新北市', '桃園市', '台中市', '高雄市'];
 const DISTRICT_OPTIONS = ['板橋區', '中和區', '新莊區', '三重區', '永和區', '大同區', '大安區', '信義區'];
@@ -47,39 +46,6 @@ function FieldLabel({ label, required }: { label: string; required?: boolean }) 
 
 function TinyText({ children }: { children: React.ReactNode }) {
   return <Typography sx={{ fontSize: '12px', color: '#124a57', lineHeight: '20px' }}>{children}</Typography>;
-}
-
-function SectionCard({
-  title,
-  children,
-  green = false,
-}: {
-  title: string;
-  children: React.ReactNode;
-  green?: boolean;
-}) {
-  const [expanded, setExpanded] = useState(true);
-  return (
-    <Box
-      sx={{
-        bgcolor: green ? '#fafffb' : '#fafafa',
-        borderRadius: '12px',
-        boxShadow: '1px 3px 7px 0px rgba(17,28,45,0.18)',
-        border: green ? '1px solid #b8edc4' : '1px solid rgba(36,53,82,0.16)',
-        overflow: 'hidden',
-      }}
-    >
-      <Box sx={{ px: 2, py: 1.5, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', borderLeft: `4px solid ${green ? '#81d394' : '#31a0e8'}`, pl: 1 }}>
-          <Typography sx={{ fontSize: '30px', color: '#124a57', lineHeight: 1, fontWeight: 700 }}>{title}</Typography>
-        </Box>
-        <IconButton size="small" onClick={() => setExpanded(v => !v)} sx={{ color: '#31a0e8' }}>
-          {expanded ? <MdExpandLess size={18} /> : <MdExpandMore size={18} />}
-        </IconButton>
-      </Box>
-      {expanded && <Box sx={{ px: 2, pb: 2 }}>{children}</Box>}
-    </Box>
-  );
 }
 
 function ImageUploadBox({ label, required }: { label: string; required?: boolean }) {

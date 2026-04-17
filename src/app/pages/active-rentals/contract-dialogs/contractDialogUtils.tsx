@@ -98,7 +98,7 @@ export function DocIcon({ icon, size = 20 }: { icon: string; size?: number }) {
     <Box sx={{
       width: 28, height: 28,
       borderRadius: '6px',
-      bgcolor: style.bg,
+      // bgcolor: style.bg,
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       flexShrink: 0,
     }}>

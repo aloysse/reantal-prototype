@@ -122,19 +122,27 @@ export default function ActiveRentalContractPage() {
               <Typography sx={{ fontSize: '16px', fontWeight: 600, color: '#124a57', mb: 1.5 }}>
                 {cat}
               </Typography>
-              <Table size="small">
+              <Table size="small" sx={{ tableLayout: 'fixed', width: '100%' }}>
+                <colgroup>
+                  <col />
+                  {isContract && <col style={{ width: 180 }} />}
+                  <col style={{ width: 110 }} />
+                  <col style={{ width: 160 }} />
+                  <col style={{ width: 80 }} />
+                </colgroup>
                 <TableHead>
                   <TableRow sx={{
                     '& th': {
                       color: 'rgba(36,53,82,0.6)', fontSize: '13px', fontWeight: 500,
-                      borderBottom: '1px solid rgba(36,53,82,0.12)',
+                      borderBottom: '1px solid rgba(36,53,82,0.12)', whiteSpace: 'nowrap',
+                      py: 1.5,
                     },
                   }}>
                     <TableCell>文件名稱</TableCell>
-                    {isContract && <TableCell>租賃/委託期間</TableCell>}
-                    <TableCell>建立時間</TableCell>
-                    <TableCell>下載文件</TableCell>
-                    <TableCell>編輯</TableCell>
+                    {isContract && <TableCell align="center">租賃/委託期間</TableCell>}
+                    <TableCell align="center">建立時間</TableCell>
+                    <TableCell align="center">下載文件</TableCell>
+                    <TableCell align="center">編輯</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -142,20 +150,20 @@ export default function ActiveRentalContractPage() {
                     const dtype = getDocType(doc.typeId);
                     return (
                       <TableRow key={doc.id} sx={{
-                        '& td': { borderBottom: '1px solid rgba(36,53,82,0.08)', py: 1.2 },
+                        '& td': { borderBottom: '1px solid rgba(36,53,82,0.08)', py: 1.8, whiteSpace: 'nowrap' },
                       }}>
                         <TableCell>
                           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                             {dtype && <DocIcon icon={dtype.icon} size={16} />}
-                            <Typography sx={{ fontSize: '14px', color: '#124a57' }}>
+                            <Typography sx={{ fontSize: '14px', color: '#124a57', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                               {dtype?.name ?? doc.typeId}
                             </Typography>
                           </Box>
                         </TableCell>
 
                         {isContract && (
-                          <TableCell>
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                          <TableCell align="right">
+                            <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5 }}>
                               <Typography sx={{ fontSize: '13px', color: '#124a57' }}>
                                 {doc.rentStart}
                               </Typography>
@@ -167,13 +175,13 @@ export default function ActiveRentalContractPage() {
                           </TableCell>
                         )}
 
-                        <TableCell>
+                        <TableCell align="right">
                           <Typography sx={{ fontSize: '13px', color: 'rgba(36,53,82,0.6)' }}>
                             {doc.createdAt}
                           </Typography>
                         </TableCell>
 
-                        <TableCell>
+                        <TableCell align="right">
                           <Button
                             startIcon={<MdFileDownload size={16} />}
                             sx={{
@@ -186,8 +194,8 @@ export default function ActiveRentalContractPage() {
                           </Button>
                         </TableCell>
 
-                        <TableCell>
-                          <Box sx={{ display: 'flex', gap: 0.5 }}>
+                        <TableCell align="right">
+                          <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
                             <IconButton
                               size="small"
                               onClick={() => setSubLeaseOpen(true)}
@@ -198,7 +206,7 @@ export default function ActiveRentalContractPage() {
                             <IconButton
                               size="small"
                               onClick={() => handleDelete(doc.id)}
-                              sx={{ color: '#e53935' }}
+                              sx={{ color: '#31a0e8' }}
                             >
                               <MdDelete size={18} />
                             </IconButton>

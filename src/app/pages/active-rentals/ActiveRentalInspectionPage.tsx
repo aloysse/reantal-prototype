@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -194,7 +194,7 @@ function ImageUploadBtn() {
         '&:hover': { borderColor: COLOR.primary },
       }}
     >
-      <MdAddCircle size={24} color={COLOR.primary} />
+      <MdAddCircle size={24} color={COLOR.textSecondary} />
       <Typography sx={{ fontSize: '16px', color: COLOR.textSecondary, lineHeight: '24px' }}>
         新增圖片
       </Typography>
@@ -373,7 +373,7 @@ function NavButtons({
 // ─── Step 1: 安全條件 ─────────────────────────────────────────────────────────
 
 function Step1Safety({ onNext }: { onNext: () => void }) {
-  const [corridorClear, setCorridorClear] = useState(false);
+  const [corridorClear, setCorridorClear] = useState(true);
 
   // 海砂屋
   const [isSaltHouse, setIsSaltHouse] = useState(false);
@@ -392,7 +392,7 @@ function Step1Safety({ onNext }: { onNext: () => void }) {
   const [radHandling, setRadHandling] = useState('');
 
   // 消防設備
-  const [hasExtinguisher, setHasExtinguisher] = useState(false);
+  const [hasExtinguisher, setHasExtinguisher] = useState(true);
   const [hasFireAlarm, setHasFireAlarm] = useState(false);
   const [hasSmokeDetector, setHasSmokeDetector] = useState(false);
 
@@ -804,7 +804,7 @@ function Step2Condition({ onBack, onNext }: { onBack: () => void; onNext: () => 
 
 function Step3Equipment({ onBack, onNext }: { onBack: () => void; onNext: () => void }) {
   // 衛浴
-  const [hasBathroom, setHasBathroom] = useState(false);
+  const [hasBathroom, setHasBathroom] = useState(true);
 
   // 熱水器
   const [hasHeater, setHasHeater] = useState(false);
@@ -946,14 +946,15 @@ function Step4Furniture({ onBack, onNext }: { onBack: () => void; onNext: () => 
           {APPLIANCE_ROWS.map((row, ri) => (
             <Box key={ri} sx={{ display: 'flex', gap: 2 }}>
               {row.map(item => (
-                <Box key={item} sx={{ flex: 1, display: 'flex', gap: 1.5, alignItems: 'flex-end' }}>
-                  <Box sx={{ minWidth: 72 }}>
+                <Box key={item} sx={{ flex: 1, display: 'flex', gap: 1, alignItems: 'flex-end' }}>
+                  <Box sx={{ flex: 1 }}>
                     <FieldLabel label={item} />
                     <TextField
                       placeholder="數量"
                       value={applianceData[item].count}
                       onChange={e => setAppliance(item, 'count', e.target.value)}
-                      sx={{ ...inputSx, width: 72 }}
+                      fullWidth
+                      sx={{ ...inputSx}}
                     />
                   </Box>
                   <Box sx={{ flex: 1 }}>
@@ -1252,12 +1253,35 @@ export default function ActiveRentalInspectionPage() {
   const statusTags = isNew ? [{ date: '', label: 'New' }] : (property?.statusTags ?? []);
 
   const [activeStep, setActiveStep] = useState(0);
+  const [completedSteps, setCompletedSteps] = useState<Set<number>>(new Set());
   const [finished, setFinished] = useState(false);
+  const stepperRef = useRef<HTMLDivElement>(null);
+  const isFirstRender = useRef(true);
 
-  const handleNext = () => setActiveStep(s => s + 1);
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    if (stepperRef.current) {
+      const steps = stepperRef.current.querySelectorAll('.MuiStep-root');
+      steps[activeStep]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [activeStep]);
+
+  const handleNext = () => {
+    setCompletedSteps(prev => new Set(prev).add(activeStep));
+    setActiveStep(s => s + 1);
+  };
+
   const handleBack = () => setActiveStep(s => s - 1);
 
+  const handleGoToStep = (index: number) => {
+    if (index !== activeStep) setActiveStep(index);
+  };
+
   const handleFinish = () => {
+    setCompletedSteps(prev => new Set(prev).add(activeStep));
     setFinished(true);
     setTimeout(() => {
       navigate(`/active-rentals/${id}/tenant`);
@@ -1313,20 +1337,26 @@ export default function ActiveRentalInspectionPage() {
         >
           {/* Vertical Stepper */}
           <Stepper
+            ref={stepperRef}
+            nonLinear
             activeStep={finished ? INSPECTION_STEPS.length : activeStep}
             orientation="vertical"
             connector={<CustomConnector />}
           >
             {INSPECTION_STEPS.map((step, index) => (
-              <Step key={step.label} completed={finished || index < activeStep}>
+              <Step key={step.label} completed={finished || completedSteps.has(index)}>
                 <StepLabel
                   slots={{ stepIcon: CustomStepIcon }}
+                  onClick={() => handleGoToStep(index)}
                   sx={{
+                    cursor: 'pointer',
                     '& .MuiStepLabel-label': {
                       fontSize: '24px',
                       lineHeight: '1.167',
                       fontWeight: 500,
-                      color: finished || index <= activeStep ? COLOR.textPrimary : COLOR.textSecondary,
+                      color: finished || completedSteps.has(index) || index === activeStep
+                        ? COLOR.textPrimary
+                        : COLOR.textSecondary,
                     },
                   }}
                 >

@@ -25,6 +25,7 @@ import {
   type ContractDocumentItem,
   type DocumentType,
 } from '../../data/mockData';
+import PageContainer from '../../components/PageContainer';
 import { CATEGORY_ORDER, DocIcon } from './contract-dialogs/contractDialogUtils';
 import DocTypeDialog from './contract-dialogs/DocTypeDialog';
 import TenantApplicationDialog from './contract-dialogs/TenantApplicationDialog';
@@ -68,8 +69,7 @@ export default function ActiveRentalContractPage() {
   }, {} as Record<string, ContractDocumentItem[]>);
 
   return (
-    <Box sx={{ bgcolor: '#eef1f2', pb: 12 }}>
-      <Box sx={{ maxWidth: '1200px', mx: 'auto', px: 3, pt: 2 }}>
+    <PageContainer>
 
       {/* 狀態標籤 */}
       {statusTags.length > 0 && (
@@ -229,7 +229,6 @@ export default function ActiveRentalContractPage() {
         open={subLeaseOpen}
         onClose={() => setSubLeaseOpen(false)}
       />
-      </Box>
-    </Box>
+    </PageContainer>
   );
 }

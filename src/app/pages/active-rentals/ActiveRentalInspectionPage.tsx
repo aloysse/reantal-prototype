@@ -22,6 +22,7 @@ import {
   MdAddCircle,
 } from 'react-icons/md';
 import { properties } from '../../data/mockData';
+import PageContainer from '../../components/PageContainer';
 
 // ─── 常數 ────────────────────────────────────────────────────────────────────
 
@@ -1273,8 +1274,7 @@ export default function ActiveRentalInspectionPage() {
   ];
 
   return (
-    <Box sx={{ bgcolor: COLOR.background, pb: '140px' }}>
-      <Box sx={{ maxWidth: '1584px', mx: 'auto', px: 3, pt: 2 }}>
+    <PageContainer>
 
         {/* 狀態標籤 */}
         {statusTags.length > 0 && (
@@ -1366,8 +1366,6 @@ export default function ActiveRentalInspectionPage() {
         </Box>
 
         </Box>{/* end sections */}
-      </Box>
-
-    </Box>
+    </PageContainer>
   );
 }

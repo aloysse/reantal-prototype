@@ -39,6 +39,7 @@ import {
   type PropertyType,
 } from '../../data/mockData';
 import SectionCard from '../../components/SectionCard';
+import PageContainer from '../../components/PageContainer';
 
 // ─── 常數 ────────────────────────────────────────────────────────────────────
 
@@ -890,8 +891,7 @@ export default function ActiveRentalLandlordPage() {
   };
 
   return (
-    <Box sx={{ bgcolor: '#eef1f2', pb: '140px' }}>
-      <Box sx={{ maxWidth: '1584px', mx: 'auto', px: 3, pt: 2 }}>
+    <PageContainer>
 
         {/* 狀態標籤 */}
         {statusTags.length > 0 && (
@@ -974,7 +974,6 @@ export default function ActiveRentalLandlordPage() {
         )}
 
         </Box>{/* end sections */}
-      </Box>
 
       {/* ── Modals ── */}
       <SelectLandlordSourceModal
@@ -988,6 +987,6 @@ export default function ActiveRentalLandlordPage() {
         onClose={() => setShowSelectModal(false)}
         onConfirm={handleSelectExisting}
       />
-    </Box>
+    </PageContainer>
   );
 }

@@ -20,6 +20,7 @@ import {
 } from 'react-icons/md';
 import { properties, tenants, type LandlordAddress, type Tenant } from '../../data/mockData';
 import SectionCard from '../../components/SectionCard';
+import PageContainer from '../../components/PageContainer';
 
 const CITY_OPTIONS = ['台北市', '新北市', '桃園市', '台中市', '高雄市'];
 const DISTRICT_OPTIONS = ['板橋區', '中和區', '新莊區', '三重區', '永和區', '大同區', '大安區', '信義區'];
@@ -177,36 +178,45 @@ export default function ActiveRentalTenantPage() {
   }
 
   return (
-    <Box sx={{ bgcolor: '#eef1f2', pb: 12 }}>
-      <Box sx={{ maxWidth: '1584px', mx: 'auto', px: 3, pt: 2 }}>
+    <PageContainer>
 
         {/* 狀態標籤 */}
         {statusTags.length > 0 && (
-          <Box sx={{ display: 'flex', gap: 1.5, mt: 1.5, mb: 2.5 }}>
-            {statusTags.map((tag, i) => (
-              <Box
-                key={i}
-                sx={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  bgcolor: '#8dde85',
-                  borderRadius: '90px',
-                  px: 1.5,
-                  py: 0.25,
-                  minHeight: '24px',
-                }}
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 1.5, mb: 2.5 }}>
+            <Box sx={{ display: 'flex', gap: 1.5 }}>
+              {statusTags.map((tag, i) => (
+                <Box
+                  key={i}
+                  sx={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    bgcolor: '#8dde85',
+                    borderRadius: '90px',
+                    px: 1.5,
+                    py: 0.25,
+                    minHeight: '24px',
+                  }}
+                >
+                  <Typography sx={{ fontSize: '12px', color: '#ffffff', whiteSpace: 'nowrap' }}>
+                    {tag.date}{tag.date && ' '}{tag.label}
+                  </Typography>
+                </Box>
+              ))}
+            </Box>
+            {hasTenant && (
+              <Button
+                variant="contained"
+                sx={{ bgcolor: '#31a0e8', borderRadius: '8px', fontSize: '12px', px: 2, minHeight: '34px', boxShadow: 'none' }}
               >
-                <Typography sx={{ fontSize: '12px', color: '#ffffff', whiteSpace: 'nowrap' }}>
-                  {tag.date}{tag.date && ' '}{tag.label}
-                </Typography>
-              </Box>
-            ))}
+                更改承租人
+              </Button>
+            )}
           </Box>
         )}
 
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        {/* <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Box sx={{ display: 'flex', gap: 1 }}>
             {hasTenant && (
               <Box sx={{ px: 1.5, py: 0.25, bgcolor: '#f5c04f', borderRadius: '90px' }}>
@@ -222,7 +232,7 @@ export default function ActiveRentalTenantPage() {
               更改承租人
             </Button>
           )}
-        </Box>
+        </Box> */}
 
         {!hasTenant ? (
           <Box
@@ -450,7 +460,6 @@ export default function ActiveRentalTenantPage() {
         )}
 
         </Box>{/* end sections */}
-      </Box>
-    </Box>
+    </PageContainer>
   );
 }

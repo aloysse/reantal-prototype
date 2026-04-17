@@ -21,6 +21,7 @@ import {
 } from 'react-icons/md';
 import { properties } from '../../data/mockData';
 import SectionCard from '../../components/SectionCard';
+import PageContainer from '../../components/PageContainer';
 import type { PropertyFormData, PropertyType } from '../../data/mockData';
 
 // ─── 常數 ────────────────────────────────────────────────────────────────────
@@ -279,8 +280,7 @@ export default function ActiveRentalDetailPage() {
   };
 
   return (
-    <Box sx={{ bgcolor: '#eef1f2', pb: 12 }}>
-      <Box sx={{ maxWidth: '1584px', mx: 'auto', px: 3, pt: 2 }}>
+    <PageContainer>
 
         {/* Status Tags */}
         {statusTags.length > 0 && (
@@ -590,9 +590,7 @@ export default function ActiveRentalDetailPage() {
           </SectionCard>
 
         </Box>
-      </Box>
-
-    </Box>
+    </PageContainer>
   );
 }
 

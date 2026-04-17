@@ -1,4 +1,5 @@
 import { Box, Typography, Alert } from '@mui/material';
+import PageContainer from '../../components/PageContainer';
 import { MdOpenInNew } from 'react-icons/md';
 import { useParams } from 'react-router-dom';
 import { properties } from '../../data/mockData';
@@ -16,8 +17,7 @@ export default function ActiveRentalAutoFillPage() {
   const statusTags = isNew ? [{ date: '', label: 'New' }] : (property?.statusTags ?? []);
 
   return (
-    <Box sx={{ bgcolor: '#eef1f2', pb: 12 }}>
-      <Box sx={{ maxWidth: '1200px', mx: 'auto', px: 3, pt: 2 }}>
+    <PageContainer>
 
       {/* 狀態標籤 */}
       {statusTags.length > 0 && (
@@ -99,7 +99,6 @@ export default function ActiveRentalAutoFillPage() {
         </Box>
 
       </Box>
-      </Box>
-    </Box>
+    </PageContainer>
   );
 }

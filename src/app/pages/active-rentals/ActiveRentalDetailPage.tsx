@@ -14,14 +14,13 @@ import {
   OutlinedInput,
 } from '@mui/material';
 import {
-  MdExpandMore,
-  MdExpandLess,
   MdFileUpload,
   MdAutoFixHigh,
   MdLocationOn,
   MdFolderOpen,
 } from 'react-icons/md';
 import { properties } from '../../data/mockData';
+import SectionCard from '../../components/SectionCard';
 import type { PropertyFormData, PropertyType } from '../../data/mockData';
 
 // ─── 常數 ────────────────────────────────────────────────────────────────────
@@ -132,13 +131,14 @@ function BinaryToggle({ value, trueLabel, falseLabel, onChange }: {
   onChange?: (v: boolean) => void;
 }) {
   return (
-    <Box sx={{ display: 'flex', border: '1px solid #31a0e8', borderRadius: '8px', overflow: 'hidden', height: '37px' }}>
+    <Box sx={{ display: 'inline-flex', border: '1px solid #31a0e8', borderRadius: '8px', overflow: 'hidden', height: '37px' }}>
       {[{ v: false, label: falseLabel }, { v: true, label: trueLabel }].map((opt, i) => (
         <Box
           key={String(opt.v)}
           onClick={() => onChange?.(opt.v)}
           sx={{
-            flex: 1,
+            px: 2,
+            minWidth: '60px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -246,27 +246,6 @@ function ImageUpload({ value, onChange }: { value?: string; onChange?: (url: str
         <MdAutoFixHigh size={16} color="#0173bd" />
         <Typography sx={{ fontSize: '12px', color: '#0173bd' }}>提供智慧解析，自動帶入資料</Typography>
       </Box>
-    </Box>
-  );
-}
-
-// ─── SectionCard ─────────────────────────────────────────────────────────────
-
-function SectionCard({ title, children }: { title: string; children: React.ReactNode }) {
-  const [expanded, setExpanded] = useState(true);
-  return (
-    <Box sx={{ bgcolor: '#fafafa', borderRadius: '16px', boxShadow: '1px 3px 7px 0px rgba(17,28,45,0.18)', overflow: 'hidden' }}>
-      <Box
-        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 4, pt: 4, pb: expanded ? 3 : 4 }}
-      >
-        <Box sx={{ display: 'flex', alignItems: 'center', borderLeft: '8px solid #31a0e8', pl: 2 }}>
-          <Typography sx={{ fontSize: '24px', fontWeight: 500, color: '#124a57', lineHeight: 1.167 }}>{title}</Typography>
-        </Box>
-        <IconButton size="small" onClick={() => setExpanded(v => !v)} sx={{ color: 'rgba(36,53,82,0.5)' }}>
-          {expanded ? <MdExpandLess size={22} /> : <MdExpandMore size={22} />}
-        </IconButton>
-      </Box>
-      {expanded && <Box sx={{ px: 4, pb: 4 }}>{children}</Box>}
     </Box>
   );
 }
@@ -495,7 +474,7 @@ export default function ActiveRentalDetailPage() {
                   { key: 'allowPets' as const, label: '養寵物', t: '可', f: '不可' },
                   { key: 'hasParking' as const, label: '車位', t: '有', f: '無' },
                 ].map(({ key, label, t, f }) => (
-                  <Box key={key}>
+                  <Box key={key} sx={{ flexShrink: 0 }}>
                     <FieldLabel label={label} />
                     <BinaryToggle value={form[key]} trueLabel={t} falseLabel={f} onChange={v => set(key, v)} />
                   </Box>

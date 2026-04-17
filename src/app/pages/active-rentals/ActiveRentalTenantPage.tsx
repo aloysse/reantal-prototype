@@ -184,8 +184,10 @@ function TextInput({
 
 export default function ActiveRentalTenantPage() {
   const { id } = useParams<{ id: string }>();
-  const property = properties.find(p => p.id === id);
+  const isNew = id === 'new';
+  const property = isNew ? null : properties.find(p => p.id === id);
   const tenant = tenants.find(t => t.id === property?.tenantId);
+  const statusTags = isNew ? [{ date: '', label: 'New' }] : (property?.statusTags ?? []);
 
   const [form, setForm] = useState<Tenant | null>(tenant ?? null);
   const hasTenant = Boolean(form);
@@ -200,7 +202,7 @@ export default function ActiveRentalTenantPage() {
   };
   const tenantForm = form as Tenant;
 
-  if (!property) {
+  if (!isNew && !property) {
     return (
       <Box sx={{ bgcolor: '#eef1f2', minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Typography sx={{ color: 'rgba(36,53,82,0.5)' }}>找不到物件資料</Typography>
@@ -210,7 +212,34 @@ export default function ActiveRentalTenantPage() {
 
   return (
     <Box sx={{ bgcolor: '#eef1f2', pb: 12 }}>
-      <Box sx={{ maxWidth: '1584px', mx: 'auto', px: 3, pt: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <Box sx={{ maxWidth: '1584px', mx: 'auto', px: 3, pt: 2 }}>
+
+        {/* 狀態標籤 */}
+        {statusTags.length > 0 && (
+          <Box sx={{ display: 'flex', gap: 1.5, mt: 1.5, mb: 2.5 }}>
+            {statusTags.map((tag, i) => (
+              <Box
+                key={i}
+                sx={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  bgcolor: '#8dde85',
+                  borderRadius: '90px',
+                  px: 1.5,
+                  py: 0.25,
+                  minHeight: '24px',
+                }}
+              >
+                <Typography sx={{ fontSize: '12px', color: '#ffffff', whiteSpace: 'nowrap' }}>
+                  {tag.date}{tag.date && ' '}{tag.label}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+        )}
+
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Box sx={{ display: 'flex', gap: 1 }}>
             {hasTenant && (
@@ -453,6 +482,8 @@ export default function ActiveRentalTenantPage() {
             </SectionCard>
           </>
         )}
+
+        </Box>{/* end sections */}
       </Box>
     </Box>
   );

@@ -1246,7 +1246,9 @@ export default function ActiveRentalInspectionPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const property = properties.find(p => p.id === id);
+  const isNew = id === 'new';
+  const property = isNew ? null : properties.find(p => p.id === id);
+  const statusTags = isNew ? [{ date: '', label: 'New' }] : (property?.statusTags ?? []);
 
   const [activeStep, setActiveStep] = useState(0);
   const [finished, setFinished] = useState(false);
@@ -1272,29 +1274,33 @@ export default function ActiveRentalInspectionPage() {
 
   return (
     <Box sx={{ bgcolor: COLOR.background, pb: '140px' }}>
-      <Box sx={{ maxWidth: '1584px', mx: 'auto', px: 3, pt: 2, display: 'flex', flexDirection: 'column', gap: 4 }}>
+      <Box sx={{ maxWidth: '1584px', mx: 'auto', px: 3, pt: 2 }}>
 
         {/* 狀態標籤 */}
-        {property?.statusTags && property.statusTags.length > 0 && (
-          <Box sx={{ display: 'flex', gap: 1 }}>
-            {property.statusTags.map((tag, i) => (
+        {statusTags.length > 0 && (
+          <Box sx={{ display: 'flex', gap: 1.5, mt: 1.5, mb: 2.5 }}>
+            {statusTags.map((tag, i) => (
               <Box
                 key={i}
                 sx={{
-                  bgcolor: COLOR.infoLight,
-                  color: COLOR.white,
-                  fontSize: '12px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  bgcolor: '#8dde85',
+                  borderRadius: '90px',
                   px: 1.5,
                   py: 0.25,
-                  borderRadius: '4px',
-                  lineHeight: '20px',
+                  minHeight: '24px',
                 }}
               >
-                {tag.date} {tag.label}
+                <Typography sx={{ fontSize: '12px', color: '#ffffff', whiteSpace: 'nowrap' }}>
+                  {tag.date}{tag.date && ' '}{tag.label}
+                </Typography>
               </Box>
             ))}
           </Box>
         )}
+
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
 
         {/* 屋況檢索 Card */}
         <Box
@@ -1359,6 +1365,7 @@ export default function ActiveRentalInspectionPage() {
           )}
         </Box>
 
+        </Box>{/* end sections */}
       </Box>
 
     </Box>

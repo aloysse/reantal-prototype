@@ -19,6 +19,7 @@ import {
   MdArrowRightAlt,
 } from 'react-icons/md';
 import {
+  properties,
   documentTypes,
   contractDocumentItems,
   type ContractDocumentItem,
@@ -33,6 +34,9 @@ import SubLeaseContractDialog from './contract-dialogs/SubLeaseContractDialog';
 
 export default function ActiveRentalContractPage() {
   const { id } = useParams<{ id: string }>();
+  const isNew = id === 'new';
+  const property = isNew ? null : properties.find(p => p.id === id);
+  const statusTags = isNew ? [{ date: '', label: 'New' }] : (property?.statusTags ?? []);
 
   const [docs, setDocs] = useState<ContractDocumentItem[]>(
     contractDocumentItems.filter(d => d.propertyId === id)
@@ -64,7 +68,33 @@ export default function ActiveRentalContractPage() {
   }, {} as Record<string, ContractDocumentItem[]>);
 
   return (
-    <Box sx={{ maxWidth: '1200px', mx: 'auto', p: 3 }}>
+    <Box sx={{ bgcolor: '#eef1f2', pb: 12 }}>
+      <Box sx={{ maxWidth: '1200px', mx: 'auto', px: 3, pt: 2 }}>
+
+      {/* 狀態標籤 */}
+      {statusTags.length > 0 && (
+        <Box sx={{ display: 'flex', gap: 1.5, mt: 1.5, mb: 2.5 }}>
+          {statusTags.map((tag, i) => (
+            <Box
+              key={i}
+              sx={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                bgcolor: '#8dde85',
+                borderRadius: '90px',
+                px: 1.5,
+                py: 0.25,
+                minHeight: '24px',
+              }}
+            >
+              <Typography sx={{ fontSize: '12px', color: '#ffffff', whiteSpace: 'nowrap' }}>
+                {tag.date}{tag.date && ' '}{tag.label}
+              </Typography>
+            </Box>
+          ))}
+        </Box>
+      )}
+
       <Box sx={{ bgcolor: '#ffffff', borderRadius: '12px', p: 3, boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
 
         {/* 新增按鈕 */}
@@ -199,6 +229,7 @@ export default function ActiveRentalContractPage() {
         open={subLeaseOpen}
         onClose={() => setSubLeaseOpen(false)}
       />
+      </Box>
     </Box>
   );
 }

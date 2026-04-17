@@ -902,12 +902,13 @@ export default function ActiveRentalLandlordPage() {
   const { id } = useParams<{ id: string }>();
   const [searchParams] = useSearchParams();
 
-  const property = properties.find(p => p.id === id);
   const isNew = id === 'new';
+  const property = isNew ? null : properties.find(p => p.id === id);
   const propertyType: PropertyType = isNew
     ? (searchParams.get('type') as PropertyType ?? 'social')
     : (property?.type ?? 'social');
   const isSocial = propertyType === 'social';
+  const statusTags = isNew ? [{ date: '', label: 'New' }] : (property?.statusTags ?? []);
 
   const initialLandlord = isNew ? null : (landlords.find(l => l.id === property?.landlordId) ?? null);
   const [currentLandlord, setCurrentLandlord] = useState<Landlord | null>(initialLandlord);
@@ -935,29 +936,33 @@ export default function ActiveRentalLandlordPage() {
 
   return (
     <Box sx={{ bgcolor: '#eef1f2', pb: '140px' }}>
-      <Box sx={{ maxWidth: '1584px', mx: 'auto', px: 3, pt: 2, display: 'flex', flexDirection: 'column', gap: 4 }}>
+      <Box sx={{ maxWidth: '1584px', mx: 'auto', px: 3, pt: 2 }}>
 
         {/* 狀態標籤 */}
-        {property?.statusTags && property.statusTags.length > 0 && (
-          <Box sx={{ display: 'flex', gap: 1 }}>
-            {property.statusTags.map((tag, i) => (
+        {statusTags.length > 0 && (
+          <Box sx={{ display: 'flex', gap: 1.5, mt: 1.5, mb: 2.5 }}>
+            {statusTags.map((tag, i) => (
               <Box
                 key={i}
                 sx={{
-                  bgcolor: '#31a0e8',
-                  color: '#fff',
-                  fontSize: '12px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  bgcolor: '#8dde85',
+                  borderRadius: '90px',
                   px: 1.5,
                   py: 0.25,
-                  borderRadius: '4px',
-                  lineHeight: '20px',
+                  minHeight: '24px',
                 }}
               >
-                {tag.date} {tag.label}
+                <Typography sx={{ fontSize: '12px', color: '#ffffff', whiteSpace: 'nowrap' }}>
+                  {tag.date}{tag.date && ' '}{tag.label}
+                </Typography>
               </Box>
             ))}
           </Box>
         )}
+
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
 
         {/* ── 空狀態 ── */}
         {!hasLandlord && (
@@ -1013,6 +1018,7 @@ export default function ActiveRentalLandlordPage() {
           </Box>
         )}
 
+        </Box>{/* end sections */}
       </Box>
 
       {/* ── Modals ── */}

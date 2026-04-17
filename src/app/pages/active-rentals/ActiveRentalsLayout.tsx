@@ -28,6 +28,7 @@ const SOCIAL_ROUTE_STEPS = [
   { path: 'inspection', label: '屋況調查', showSave: false },
   { path: 'tenant', label: '承租人資料', showSave: false },
   { path: 'contract', label: '契約文件', showSave: false },
+  { path: 'auto-fill', label: '自動填表', showSave: false },
 ];
 
 const GENERAL_ROUTE_STEPS = [
@@ -49,6 +50,7 @@ const SUB_PATH_TO_STEP: Record<string, number> = {
   'inspection': 3,
   'tenant': 4,
   'contract': 5,
+  'auto-fill': 7,
 };
 
 // 次導覽列高度（固定值，對應 StepsBar 高度：py:2 × 2 + minHeight:80）

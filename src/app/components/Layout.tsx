@@ -50,15 +50,18 @@ function TopNavButton({
   icon: Icon,
   active,
   onClick,
+  disabled,
 }: {
   label: string;
   icon: IconType;
   active?: boolean;
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
 }) {
   return (
     <Button
       onClick={onClick}
+      disabled={disabled}
       sx={{
         minWidth: 'auto',
         height: '37px',
@@ -72,6 +75,10 @@ function TopNavButton({
         lineHeight: 1,
         bgcolor: active ? 'rgba(18,74,87,0.1)' : 'transparent',
         '&:hover': { bgcolor: 'rgba(18,74,87,0.12)' },
+        '&.Mui-disabled': {
+          color: 'rgba(36,53,82,0.35)',
+          bgcolor: 'transparent',
+        },
       }}
     >
       <Icon size={16} />
@@ -146,15 +153,7 @@ export default function Layout() {
 
           {/* Navigation */}
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 2, minWidth: 0, overflowX: 'auto' }}>
-            {navItems.map((item) => (
-              <TopNavButton
-                key={item.label}
-                label={item.label}
-                icon={item.icon}
-                onClick={item.path ? () => navigate(item.path!) : undefined}
-              />
-            ))}
-
+            
             {/* 包租代管 Dropdown */}
             <TopNavButton
               label="包租代管"
@@ -162,6 +161,16 @@ export default function Layout() {
               active={isRentalActive}
               onClick={handleRentalMenuOpen}
             />
+
+            {navItems.map((item) => (
+              <TopNavButton
+                key={item.label}
+                label={item.label}
+                icon={item.icon}
+                disabled
+                onClick={item.path ? () => navigate(item.path!) : undefined}
+              />
+            ))}
 
             <Menu
               anchorEl={anchorEl}

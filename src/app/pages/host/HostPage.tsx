@@ -42,7 +42,7 @@ function FieldWrap({ children, label, required, half }: {
   half?: boolean;
 }) {
   return (
-    <Box sx={{ flex: half ? '0 0 calc(50% - 8px)' : '1 1 auto', minWidth: 0 }}>
+    <Box sx={{ flex: half ? '0 0 calc(50% - 12px)' : '1 1 auto', minWidth: 0 }}>
       {label && <FieldLabel label={label} required={required} />}
       {children}
     </Box>
@@ -68,7 +68,7 @@ function StyledInput({ value, onChange, placeholder }: {
 
 function FieldRow({ children }: { children: React.ReactNode }) {
   return (
-    <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+    <Box sx={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
       {children}
     </Box>
   );
@@ -122,13 +122,11 @@ function AddressFields({
 
   return (
     <Box>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+      <Typography sx={{ fontSize: '14px', color: 'rgba(36,53,82,0.6)', lineHeight: '22px', mb: 1 }}>
+        {label}
+      </Typography>
+      <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', alignItems: 'center' }}>
         {prefix}
-        <Typography sx={{ fontSize: '14px', color: 'rgba(36,53,82,0.6)', lineHeight: '22px' }}>
-          {label}
-        </Typography>
-      </Box>
-      <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', alignItems: 'center' }}>
         <TextField
           value={value.zip}
           onChange={e => set('zip', e.target.value)}
@@ -237,11 +235,13 @@ export default function HostPage() {
   const sameAsCompanyBtnSx = {
     bgcolor: '#31a0e8',
     color: '#fff',
-    fontSize: '12px',
-    height: '26px',
-    px: 1,
+    fontSize: '14px',
+    fontWeight: 500,
+    height: '37px',
     minWidth: 0,
-    borderRadius: '6px',
+    borderRadius: '8px',
+    whiteSpace: 'nowrap',
+    boxShadow: '0px 1px 5px rgba(0,0,0,0.12), 0px 2px 2px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.2)',
     '&:hover': { bgcolor: '#2090d8' },
   } as const;
 
@@ -259,7 +259,6 @@ export default function HostPage() {
             borderRadius: '8px',
             fontSize: '14px',
             fontWeight: 500,
-            px: 3,
             height: '40px',
             '&:hover': { bgcolor: '#2288cc' },
           }}
@@ -268,10 +267,10 @@ export default function HostPage() {
         </Button>
       </Box>
 
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
         {/* 公司基本資料 */}
         <SectionCard title="公司基本資料">
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
             <FieldRow>
               <FieldWrap label="公司名稱" required half>
                 <StyledInput value={company.companyName} onChange={v => setCompany(p => ({ ...p, companyName: v }))} />
@@ -336,7 +335,8 @@ export default function HostPage() {
             </FieldRow>
             <FieldRow>
               <FieldWrap half>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                <FieldLabel label="聯絡電話" />
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                   <Button
                     size="small"
                     variant="contained"
@@ -345,12 +345,14 @@ export default function HostPage() {
                   >
                     同公司資料
                   </Button>
-                  <FieldLabel label="聯絡電話" />
+                  <Box sx={{ flex: 1 }}>
+                    <StyledInput value={agent.phone} onChange={v => setAgent(p => ({ ...p, phone: v }))} />
+                  </Box>
                 </Box>
-                <StyledInput value={agent.phone} onChange={v => setAgent(p => ({ ...p, phone: v }))} />
               </FieldWrap>
               <FieldWrap half>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                <FieldLabel label="電子郵件信箱" />
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                   <Button
                     size="small"
                     variant="contained"
@@ -359,9 +361,10 @@ export default function HostPage() {
                   >
                     同公司資料
                   </Button>
-                  <FieldLabel label="電子郵件信箱" />
+                  <Box sx={{ flex: 1 }}>
+                    <StyledInput value={agent.email} onChange={v => setAgent(p => ({ ...p, email: v }))} />
+                  </Box>
                 </Box>
-                <StyledInput value={agent.email} onChange={v => setAgent(p => ({ ...p, email: v }))} />
               </FieldWrap>
             </FieldRow>
           </Box>
@@ -369,7 +372,7 @@ export default function HostPage() {
 
         {/* 租賃住宅管理人員 */}
         <SectionCard title="租賃住宅管理人員">
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
             <FieldRow>
               <FieldWrap label="姓名" required half>
                 <StyledInput value={manager.name} onChange={v => setManager(p => ({ ...p, name: v }))} />
@@ -399,7 +402,8 @@ export default function HostPage() {
             </FieldRow>
             <FieldRow>
               <FieldWrap half>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                <FieldLabel label="聯絡電話" />
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                   <Button
                     size="small"
                     variant="contained"
@@ -408,9 +412,10 @@ export default function HostPage() {
                   >
                     同公司資料
                   </Button>
-                  <FieldLabel label="聯絡電話" />
+                  <Box sx={{ flex: 1 }}>
+                    <StyledInput value={manager.phone} onChange={v => setManager(p => ({ ...p, phone: v }))} />
+                  </Box>
                 </Box>
-                <StyledInput value={manager.phone} onChange={v => setManager(p => ({ ...p, phone: v }))} />
               </FieldWrap>
             </FieldRow>
           </Box>

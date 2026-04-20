@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { MdClose } from 'react-icons/md';
 import { documentTypes } from '../../../data/mockData';
-import { CATEGORY_ORDER, DocIcon, greenBtnSx } from './contractDialogUtils';
+import { CATEGORY_ORDER, CONTRACT_DIALOG_HEIGHT, CONTRACT_DIALOG_MAX_HEIGHT, DocIcon, greenBtnSx } from './contractDialogUtils';
 
 interface Props {
   open: boolean;
@@ -37,7 +37,7 @@ export default function DocTypeDialog({ open, onClose, usedTypeIds, onSelect }: 
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth
-      slotProps={{ paper: { sx: { borderRadius: '16px', p: 1 } } }}>
+      slotProps={{ paper: { sx: { borderRadius: '16px', p: 1, height: `${CONTRACT_DIALOG_HEIGHT}px`, maxHeight: CONTRACT_DIALOG_MAX_HEIGHT } } }}>
       <DialogTitle sx={{ pb: 1 }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Typography sx={{ fontSize: '24px', fontWeight: 500, color: '#124a57' }}>

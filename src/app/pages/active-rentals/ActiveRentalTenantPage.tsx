@@ -79,7 +79,7 @@ function ImageUploadBox({ label, required }: { label: string; required?: boolean
       >
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
           <MdFileUpload size={18} color="rgba(36,53,82,0.45)" />
-          <Typography sx={{ fontSize: '12px', color: 'rgba(36,53,82,0.6)' }}>上傳圖片</Typography>
+          <Typography sx={{ fontSize: '12px', color: 'rgba(36,53,82,0.6)' }}>Ai 建檔快手</Typography>
         </Box>
         <Box sx={{ height: '22px', bgcolor: '#e8f6ff', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
           <MdAutoFixHigh size={12} color="#0173bd" />
@@ -107,26 +107,30 @@ function AddressRow({
   const set = (k: keyof LandlordAddress, v: string) => onChange({ ...value, [k]: v });
   return (
     <Box>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.5 }}>
+      <FieldLabel label={withSameButton ? '通訊地址' : '戶籍地址'} required={required} />
+      <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
         {withSameButton && (
           <Button
             size="small"
+            variant="contained"
             onClick={onCopy}
             sx={{
-              minWidth: '60px',
+              minWidth: 0,
               height: '37px',
-              border: '1px solid #31a0e8',
-              color: '#31a0e8',
+              px: 2,
               borderRadius: '8px',
-              fontSize: '12px',
+              fontSize: '14px',
+              fontWeight: 500,
+              color: '#fff',
+              bgcolor: '#31a0e8',
+              whiteSpace: 'nowrap',
+              boxShadow: '0px 1px 5px rgba(0,0,0,0.12), 0px 2px 2px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.2)',
+              '&:hover': { bgcolor: '#2090d8' },
             }}
           >
             同上
           </Button>
         )}
-        <FieldLabel label={withSameButton ? '通訊地址' : '戶籍地址'} required={required} />
-      </Box>
-      <Box sx={{ display: 'flex', gap: 1 }}>
         <TextField value={value?.zip ?? ''} onChange={e => set('zip', e.target.value)} placeholder="郵遞區號" sx={{ ...inputSx, width: '120px' }} />
         <TextField value={value?.city ?? ''} onChange={e => set('city', e.target.value)} placeholder={CITY_OPTIONS[1]} sx={{ ...inputSx, width: '140px' }} />
         <TextField value={value?.district ?? ''} onChange={e => set('district', e.target.value)} placeholder={DISTRICT_OPTIONS[0]} sx={{ ...inputSx, width: '140px' }} />

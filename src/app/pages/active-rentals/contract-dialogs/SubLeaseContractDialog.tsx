@@ -28,6 +28,8 @@ import {
   radioSx,
   greenBtnSx,
   outlineBtnSx,
+  CONTRACT_DIALOG_HEIGHT,
+  CONTRACT_DIALOG_MAX_HEIGHT,
   REPAIR_ITEMS_4,
   REPAIR_ITEMS_5,
   REPAIR_ITEMS_6,
@@ -77,7 +79,7 @@ export default function SubLeaseContractDialog({ open, onClose }: Props) {
 
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth
-      slotProps={{ paper: { sx: { borderRadius: '16px', p: 1 } } }}>
+      slotProps={{ paper: { sx: { borderRadius: '16px', p: 1, height: `${CONTRACT_DIALOG_HEIGHT}px`, maxHeight: CONTRACT_DIALOG_MAX_HEIGHT } } }}>
       <DialogTitle sx={{ pb: 1 }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Typography sx={{ fontSize: '22px', fontWeight: 600, color: '#124a57' }}>
@@ -89,12 +91,12 @@ export default function SubLeaseContractDialog({ open, onClose }: Props) {
         </Box>
       </DialogTitle>
 
-      <DialogContent>
-        <StepIndicator total={6} current={step} />
+      <DialogContent sx={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: 540 }}>
+        <StepIndicator total={6} current={step} onStepClick={setStep} />
 
         {/* ── Step 1：基本資訊 ─────────────────────────────────────────── */}
         {step === 1 && (
-          <SectionCard title="基本資訊">
+          <SectionCard title="基本資訊" sx={{ flex: 1, mb: 0 }}>
             <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
               <Box sx={{ flex: 1 }}>
                 <Typography sx={{ fontSize: '13px', color: 'rgba(36,53,82,0.6)', mb: 0.5 }}>
@@ -212,7 +214,7 @@ export default function SubLeaseContractDialog({ open, onClose }: Props) {
 
         {/* ── Step 2：相關費用支付 ─────────────────────────────────────── */}
         {step === 2 && (
-          <SectionCard title="相關費用支付">
+          <SectionCard title="相關費用支付" sx={{ flex: 1, mb: 0 }}>
             <CostRow label="水費" value={waterBy} onChange={setWaterBy} amountLabel="每度水費" />
             <CostRow
               label="電費"
@@ -241,8 +243,8 @@ export default function SubLeaseContractDialog({ open, onClose }: Props) {
 
         {/* ── Step 3：稅費負擔之約定 + 其他 ──────────────────────────── */}
         {step === 3 && (
-          <>
-            <SectionCard title="稅費負擔之約定">
+          <Box sx={{ display: 'grid', gridTemplateRows: 'auto minmax(0, 1fr)', gap: 2, flex: 1, minHeight: 0 }}>
+            <SectionCard title="稅費負擔之約定" sx={{ mb: 0 }}>
               <Typography sx={{ fontSize: '13px', color: 'rgba(36,53,82,0.6)', mb: 0.5 }}>公證費</Typography>
               <RadioGroup row value={notaryFee} onChange={e => setNotaryFee(e.target.value)}>
                 <FormControlLabel value="包租業負擔" control={<Radio sx={radioSx} size="small" />} label="包租業負擔" />
@@ -251,7 +253,7 @@ export default function SubLeaseContractDialog({ open, onClose }: Props) {
               </RadioGroup>
             </SectionCard>
 
-            <SectionCard title="其他">
+            <SectionCard title="其他" sx={{ mb: 0 }}>
               <Typography sx={{ fontSize: '13px', color: 'rgba(36,53,82,0.6)', mb: 0.5 }}>
                 室內裝修於返還租賃住宅時
               </Typography>
@@ -300,32 +302,32 @@ export default function SubLeaseContractDialog({ open, onClose }: Props) {
                 )}
               </Box>
             </SectionCard>
-          </>
+          </Box>
         )}
 
         {/* ── Step 4：修繕項目 - 室外 ─────────────────────────────────── */}
         {step === 4 && (
-          <SectionCard title="包租業負責修繕項目 - 室外">
+          <SectionCard title="包租業負責修繕項目 - 室外" sx={{ flex: 1, mb: 0 }}>
             <RepairTable items={REPAIR_ITEMS_4} />
           </SectionCard>
         )}
 
         {/* ── Step 5：修繕項目 - 客餐廳及臥室 ────────────────────────── */}
         {step === 5 && (
-          <SectionCard title="包租業負責修繕項目 - 客餐廳及臥室">
+          <SectionCard title="包租業負責修繕項目 - 客餐廳及臥室" sx={{ flex: 1, mb: 0 }}>
             <RepairTable items={REPAIR_ITEMS_5} />
           </SectionCard>
         )}
 
         {/* ── Step 6：修繕項目 - 廚房及衛浴設備等 ────────────────────── */}
         {step === 6 && (
-          <SectionCard title="包租業負責修繕項目 - 廚房及衛浴設備等">
+          <SectionCard title="包租業負責修繕項目 - 廚房及衛浴設備等" sx={{ flex: 1, mb: 0 }}>
             <RepairTable items={REPAIR_ITEMS_6} />
           </SectionCard>
         )}
       </DialogContent>
 
-      <DialogActions sx={{ px: 3, pb: 3, justifyContent: 'space-between' }}>
+      <DialogActions sx={{ px: 3, pb: 3, pt: 8, justifyContent: 'space-between' }}>
         {step > 1 ? (
           <Button variant="outlined" onClick={() => setStep(s => s - 1)} sx={outlineBtnSx}>
             上一步

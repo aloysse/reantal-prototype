@@ -32,6 +32,8 @@ export const ICON_STYLE: Record<string, { color: string; bg: string }> = {
 export const REPAIR_ITEMS_4 = ['大門', '門鎖', '門鈴', '對講機', '房門'];
 export const REPAIR_ITEMS_5 = ['落地門窗', '紗門', '玻璃窗', '天花板', '房門'];
 export const REPAIR_ITEMS_6 = ['洗臉台', '流理台', '排水孔', '水龍頭', '馬桶'];
+export const CONTRACT_DIALOG_HEIGHT = 740;
+export const CONTRACT_DIALOG_MAX_HEIGHT = 'calc(100vh - 64px)';
 
 // ─── 樣式常數 ──────────────────────────────────────────────────────────────────
 
@@ -107,23 +109,44 @@ export function DocIcon({ icon, size = 20 }: { icon: string; size?: number }) {
   );
 }
 
-export function StepIndicator({ total, current }: { total: number; current: number }) {
+export function StepIndicator({
+  total,
+  current,
+  onStepClick,
+}: {
+  total: number;
+  current: number;
+  onStepClick?: (step: number) => void;
+}) {
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 3 }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0, mb: 3 }}>
       {Array.from({ length: total }).map((_, i) => (
-        <Box key={i} sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-          <Box sx={{
-            width: 28, height: 28, borderRadius: '50%',
-            bgcolor: i + 1 === current ? '#81d394' : 'transparent',
-            border: i + 1 === current ? 'none' : '1px solid rgba(36,53,82,0.3)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: '13px', fontWeight: 500,
-            color: i + 1 === current ? '#fff' : 'rgba(36,53,82,0.6)',
-          }}>
+        <Box key={i} sx={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+          <Box
+            onClick={() => onStepClick?.(i + 1)}
+            sx={{
+              width: 32, height: 32, borderRadius: '50%',
+              bgcolor: i + 1 === current ? '#81d394' : '#f0f0f0',
+              boxShadow: i + 1 === current ? '1px 1px 4px 0px rgba(0,0,0,0.4)' : 'none',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: '14px', fontWeight: 400,
+              color: i + 1 === current ? '#fff' : 'rgba(36,53,82,0.35)',
+              cursor: onStepClick ? 'pointer' : 'default',
+              flexShrink: 0,
+            }}
+          >
             {i + 1}
           </Box>
           {i < total - 1 && (
-            <Box sx={{ width: 24, height: 1, bgcolor: 'rgba(36,53,82,0.25)' }} />
+            <Box
+              sx={{
+                width: 20,
+                height: 0,
+                borderTop: '1px solid rgba(36,53,82,0.35)',
+                mx: 0.5,
+                flexShrink: 0,
+              }}
+            />
           )}
         </Box>
       ))}
@@ -131,7 +154,15 @@ export function StepIndicator({ total, current }: { total: number; current: numb
   );
 }
 
-export function SectionCard({ title, children }: { title: string; children: React.ReactNode }) {
+export function SectionCard({
+  title,
+  children,
+  sx,
+}: {
+  title: string;
+  children: React.ReactNode;
+  sx?: Record<string, unknown>;
+}) {
   return (
     <Box sx={{
       border: '1px solid rgba(36,53,82,0.2)',
@@ -139,6 +170,9 @@ export function SectionCard({ title, children }: { title: string; children: Reac
       p: 3,
       bgcolor: '#ffffff',
       mb: 2,
+      overflowY: 'auto',
+      minHeight: 0,
+      ...sx,
     }}>
       <Typography sx={{ fontSize: '16px', fontWeight: 600, color: '#124a57', mb: 2 }}>
         {title}

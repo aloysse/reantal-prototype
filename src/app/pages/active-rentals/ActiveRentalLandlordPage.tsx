@@ -171,7 +171,7 @@ function ImageUpload({ label, required }: { label?: string; required?: boolean }
       >
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 0.5, py: 1 }}>
           <MdFileUpload size={24} color="rgba(36,53,82,0.4)" />
-          <Typography sx={{ fontSize: '16px', color: 'rgba(36,53,82,0.6)' }}>上傳圖片</Typography>
+          <Typography sx={{ fontSize: '16px', color: 'rgba(36,53,82,0.6)' }}>Ai 建檔快手</Typography>
         </Box>
         <Box sx={{
           width: '100%',
@@ -210,14 +210,12 @@ function AddressFields({
   const set = (k: keyof LandlordAddress, v: string) => onChange?.({ ...value, [k]: v });
   return (
     <Box>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+      <Typography sx={{ fontSize: '14px', color: 'rgba(36,53,82,0.6)', lineHeight: '22px', mb: 1 }}>
+        {label}
+        {required && <span style={{ color: '#fc4b6c', marginLeft: 2 }}>*</span>}
+      </Typography>
+      <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', alignItems: 'center' }}>
         {prefix}
-        <Typography sx={{ fontSize: '14px', color: 'rgba(36,53,82,0.6)', lineHeight: '22px' }}>
-          {label}
-          {required && <span style={{ color: '#fc4b6c', marginLeft: 2 }}>*</span>}
-        </Typography>
-      </Box>
-      <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', alignItems: 'center' }}>
         <TextField
           value={value?.zip ?? ''}
           onChange={e => set('zip', e.target.value)}
@@ -520,7 +518,7 @@ function LandlordBasicInfoCard({
         <Typography sx={{ fontSize: '14px', color: 'rgba(36,53,82,0.6)', mb: 1 }}>身份類型</Typography>
         <BinaryToggle
           value={landlord.personType}
-          options={[{ label: '自然人', value: 'natural' }, { label: '私法人', value: 'legal' }]}
+          options={[{ label: '自然人', value: 'natural' }, { label: '法人', value: 'legal' }]}
           onChange={v => set('personType', v as LandlordPersonType)}
         />
       </Box>
@@ -603,11 +601,14 @@ function LandlordBasicInfoCard({
                   sx={{
                     bgcolor: sameAsAbove ? '#31a0e8' : '#31a0e8',
                     color: '#fff',
-                    fontSize: '12px',
-                    height: '26px',
-                    px: 1,
+                    fontSize: '14px',
+                    fontWeight: 500,
+                    height: '37px',
+                    px: 2,
                     minWidth: 0,
-                    borderRadius: '6px',
+                    borderRadius: '8px',
+                    whiteSpace: 'nowrap',
+                    boxShadow: '0px 1px 5px rgba(0,0,0,0.12), 0px 2px 2px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.2)',
                     '&:hover': { bgcolor: '#2090d8' },
                   }}
                 >
@@ -618,7 +619,7 @@ function LandlordBasicInfoCard({
           </Box>
         </Box>
       ) : (
-        /* ── 私法人 ── */
+        /* ── 法人 ── */
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
           <Box sx={{ display: 'flex', gap: 4, alignItems: 'flex-start' }}>
             {/* 左側：公司登記影本 */}

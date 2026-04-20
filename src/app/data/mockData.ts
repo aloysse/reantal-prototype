@@ -3,7 +3,7 @@
 export type PropertyType = 'social' | 'general'; // 社會住宅 | 一般租賃
 export type ListingType = 'entrusted' | 'active'; // 委託出租 | 出租中
 export type SocialApplicationStatus = 'approved' | 'pending' | null;
-export type LandlordPersonType = 'natural' | 'legal'; // 自然人 | 私法人
+export type LandlordPersonType = 'natural' | 'legal'; // 自然人 | 法人
 
 export interface LandlordAddress {
   zip?: string;
@@ -123,7 +123,7 @@ export interface Landlord {
   nightPhone?: string;   // 市話(夜)
   domicileAddress?: LandlordAddress;  // 戶籍地址
   mailingAddress?: LandlordAddress;   // 通訊地址
-  // 私法人欄位
+  // 法人欄位
   companyName?: string;
   representative?: string;
   taxId?: string;

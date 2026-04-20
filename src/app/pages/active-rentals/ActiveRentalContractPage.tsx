@@ -123,19 +123,34 @@ export default function ActiveRentalContractPage() {
           </Box>
         )}
 
-        {/* 新增按鈕 */}
-        <Button
-          startIcon={<MdAdd size={18} />}
-          onClick={() => setTypeDialogOpen(true)}
-          sx={{
-            bgcolor: '#81d394', color: '#fff', fontWeight: 500,
-            borderRadius: '8px', px: 2, height: 37, mb: 3,
-            '&:hover': { bgcolor: '#6bc480' },
-            boxShadow: '0px 1px 5px rgba(0,0,0,0.2)',
-          }}
-        >
-          新增契約文件
-        </Button>
+        <Box sx={{ display: 'flex', alignItems: 'center',  gap: 2 }}>
+          {/* 新增按鈕 */}
+          <Button
+            startIcon={<MdAdd size={18} />}
+            onClick={() => setTypeDialogOpen(true)}
+            sx={{
+              bgcolor: '#81d394', color: '#fff', fontWeight: 500,
+              borderRadius: '8px', px: 2, height: 37, mb: 3,
+              '&:hover': { bgcolor: '#6bc480' },
+              boxShadow: '0px 1px 5px rgba(0,0,0,0.2)',
+            }}
+          >
+            新增契約文件
+          </Button>
+
+          <Button
+            startIcon={<MdFileDownload size={18} />}
+            onClick={() => setTypeDialogOpen(true)}
+            sx={{
+              bgcolor: '#81d394', color: '#fff', fontWeight: 500,
+              borderRadius: '8px', px: 2, height: 37, mb: 3,
+              '&:hover': { bgcolor: '#6bc480' },
+              boxShadow: '0px 1px 5px rgba(0,0,0,0.2)',
+            }}
+          >
+            一鍵下載所有文件
+          </Button>
+        </Box>
 
         {/* 各分類清單 */}
         {CATEGORY_ORDER.map(cat => {
@@ -225,14 +240,14 @@ export default function ActiveRentalContractPage() {
                             <IconButton
                               size="small"
                               onClick={() => setSubLeaseOpen(true)}
-                              sx={{ color: '#31a0e8' }}
+                              sx={{ color: '#81d394' }}
                             >
                               <MdEdit size={18} />
                             </IconButton>
                             <IconButton
                               size="small"
                               onClick={() => handleDelete(doc.id)}
-                              sx={{ color: '#31a0e8' }}
+                              sx={{ color: '#81d394' }}
                             >
                               <MdDelete size={18} />
                             </IconButton>

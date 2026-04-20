@@ -66,7 +66,7 @@ const selectSx = {
 
 function FieldLabel({ label, required }: { label: string; required?: boolean }) {
   return (
-    <Typography sx={{ fontSize: '14px', color: 'rgba(36,53,82,0.6)', lineHeight: '22px', mb: 1 }}>
+    <Typography sx={{ fontSize: '14px', color: 'rgba(36,53,82,0.6)', lineHeight: '22px', mb: 2 }}>
       {label}
       {required && <span style={{ color: '#fc4b6c', marginLeft: 2 }}>*</span>}
     </Typography>
@@ -179,7 +179,7 @@ function MultiChips({ options, selected, onChange, label, required }: {
         renderValue={(vals) =>
           (vals as string[]).length === 0
             ? <Typography sx={{ fontSize: '14px', color: 'rgba(0,0,0,0.38)' }}>請選擇</Typography>
-            : <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+            : <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                 {(vals as string[]).map(v => (
                   <Chip key={v} label={v} size="small" sx={{ height: '22px', fontSize: '12px', bgcolor: 'rgba(49,160,232,0.12)', color: '#31a0e8' }} />
                 ))}
@@ -239,9 +239,9 @@ function ImageUpload({ value, onChange }: { value?: string; onChange?: (url: str
       {value ? (
         <Box component="img" src={value} sx={{ width: '100%', flex: 1, objectFit: 'cover' }} />
       ) : (
-        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
+        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
           <MdFileUpload size={24} color="rgba(36,53,82,0.6)" />
-          <Typography sx={{ fontSize: '16px', color: 'rgba(36,53,82,0.6)' }}>上傳圖片</Typography>
+          <Typography sx={{ fontSize: '16px', color: 'rgba(36,53,82,0.6)' }}>Ai 建檔快手</Typography>
         </Box>
       )}
       <Box sx={{ width: '100%', height: '28px', bgcolor: '#e8f6ff', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
@@ -286,7 +286,7 @@ export default function ActiveRentalDetailPage() {
 
         {/* Status Tags */}
         {statusTags.length > 0 && (
-          <Box sx={{ display: 'flex', gap: 1.5, mt: 1.5, mb: 2.5 }}>
+          <Box sx={{ display: 'flex', gap: 2, mt: 1.5, mb: 2.5 }}>
             {statusTags.map((tag, i) => (
               <Box
                 key={i}
@@ -309,20 +309,20 @@ export default function ActiveRentalDetailPage() {
         )}
 
         {/* Sections */}
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
 
           {/* ── 謄本資訊 ── */}
           <SectionCard title="謄本資訊">
             {propertyType === 'social' ? (
               // 社會住宅：左側圖片上傳 + 右側欄位
-              <Box sx={{ display: 'flex', gap: 4.5, alignItems: 'stretch' }}>
+              <Box sx={{ display: 'flex', gap: 9, alignItems: 'stretch' }}>
                 {/* 第一類謄本 */}
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, flexShrink: 0, width: '240px' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flexShrink: 0, width: '240px' }}>
                   <FieldLabel label="第一類謄本" />
                   <ImageUpload value={photoUrl} onChange={setPhotoUrl} />
                 </Box>
                 {/* 右側欄位 */}
-                <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
                   <AddressRow form={form} set={set} />
                   <LotHouseRow form={form} set={set} />
                   <CoordAreaRow form={form} set={set} />
@@ -331,7 +331,7 @@ export default function ActiveRentalDetailPage() {
               </Box>
             ) : (
               // 一般租賃：匯入謄本按鈕 + 下方欄位
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                 <Box>
                   <FieldLabel label="謄本" />
                   <Box
@@ -339,7 +339,7 @@ export default function ActiveRentalDetailPage() {
                       display: 'inline-flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      gap: 1,
+                      gap: 2,
                       px: 3,
                       py: 1,
                       bgcolor: '#31a0e8',
@@ -356,13 +356,13 @@ export default function ActiveRentalDetailPage() {
                 <AddressRow form={form} set={set} />
                 <LotHouseRow form={form} set={set} />
                 <CoordAreaRow form={form} set={set} />
-                <Box sx={{ display: 'flex', gap: 2 }}>
+                <Box sx={{ display: 'flex', gap: 4 }}>
                   <FieldWrap label="重要使用限值" half>
                     <StyledInput value={form.actualArea} onChange={v => set('actualArea', v)} />
                   </FieldWrap>
                   <FieldWrap half>
                     <FieldLabel label="建物持分比" required />
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                       <StyledInput value={form.shareNumerator} onChange={v => set('shareNumerator', v)} placeholder="分子" />
                       <Typography sx={{ fontSize: '14px', color: '#124a57', px: 0.5 }}>/</Typography>
                       <StyledInput value={form.shareDenominator} onChange={v => set('shareDenominator', v)} placeholder="分母" />
@@ -375,9 +375,9 @@ export default function ActiveRentalDetailPage() {
 
           {/* ── 基本資料 ── */}
           <SectionCard title="基本資料">
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
               {/* 案名 */}
-              <Box sx={{ display: 'flex', gap: 2 }}>
+              <Box sx={{ display: 'flex', gap: 4 }}>
                 <Box sx={{ flex: 1 }}>
                   <FieldLabel label="案名" required />
                   <StyledInput value={form.caseName} onChange={v => set('caseName', v)} fullWidth />
@@ -390,7 +390,7 @@ export default function ActiveRentalDetailPage() {
                 )}
               </Box>
               {/* 總樓層 + 社區名稱 */}
-              <Box sx={{ display: 'flex', gap: 2 }}>
+              <Box sx={{ display: 'flex', gap: 4 }}>
                 <FieldWrap label="總樓層" required half>
                   <StyledInput value={form.totalFloors} onChange={v => set('totalFloors', v)} />
                 </FieldWrap>
@@ -399,10 +399,10 @@ export default function ActiveRentalDetailPage() {
                 </FieldWrap>
               </Box>
               {/* 格局 + 房屋狀況 */}
-              <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+              <Box sx={{ display: 'flex', gap: 4, alignItems: 'flex-start' }}>
                 <Box sx={{ flex: 1 }}>
                   <FieldLabel label="格局" required />
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
                     <FormControlLabel
                       control={
                         <Checkbox
@@ -455,7 +455,7 @@ export default function ActiveRentalDetailPage() {
                 </Box>
               </Box>
               {/* 可使用坪數 + 建築竣工日期 */}
-              <Box sx={{ display: 'flex', gap: 2 }}>
+              <Box sx={{ display: 'flex', gap: 4 }}>
                 <FieldWrap label="可使用坪數" required half>
                   <StyledInput value={form.usableArea} onChange={v => set('usableArea', v)} />
                 </FieldWrap>
@@ -471,7 +471,7 @@ export default function ActiveRentalDetailPage() {
                 </FieldWrap>
               </Box>
               {/* 設備 / 傢俱 / 身份（同排，三欄） */}
-              <Box sx={{ display: 'flex', gap: 2 }}>
+              <Box sx={{ display: 'flex', gap: 4 }}>
                 <MultiChips label="設備提供" options={APPLIANCE_OPTIONS} selected={form.appliances} onChange={v => set('appliances', v)} />
                 <MultiChips label="傢俱提供" options={FURNITURE_OPTIONS} selected={form.furniture} onChange={v => set('furniture', v)} />
                 <MultiChips label="身份選擇" options={TENANT_OPTIONS} selected={form.targetTenants} onChange={v => set('targetTenants', v)} />
@@ -499,9 +499,9 @@ export default function ActiveRentalDetailPage() {
 
           {/* ── 加分項目 ── */}
           <SectionCard title="加分項目">
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
               {/* 裝潢程度 + 裝潢類型 */}
-              <Box sx={{ display: 'flex', gap: 2 }}>
+              <Box sx={{ display: 'flex', gap: 4 }}>
                 <FieldWrap label="裝潢程度" required half>
                   <StyledSelect value={form.decorationLevel} onChange={v => set('decorationLevel', v)} options={DECORATION_LEVELS} placeholder="請選擇" />
                 </FieldWrap>
@@ -511,14 +511,14 @@ export default function ActiveRentalDetailPage() {
               </Box>
               {/* Row 2 差異：社宅=客廳狀態+生活機能，一般=生活機能+視野居住 */}
               {propertyType === 'social' ? (
-                <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+                <Box sx={{ display: 'flex', gap: 4, alignItems: 'flex-start' }}>
                   <FieldWrap label="客廳狀態" required half>
                     <StyledSelect value={form.livingRoomStatus} onChange={v => set('livingRoomStatus', v)} options={LIVING_ROOM_STATUS} placeholder="請選擇" />
                   </FieldWrap>
                   <MultiChips label="生活機能" options={LIFE_OPTIONS} selected={form.lifeConvenience} onChange={v => set('lifeConvenience', v)} />
                 </Box>
               ) : (
-                <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+                <Box sx={{ display: 'flex', gap: 4, alignItems: 'flex-start' }}>
                   <MultiChips label="生活機能" options={LIFE_OPTIONS} selected={form.lifeConvenience} onChange={v => set('lifeConvenience', v)} />
                   <FieldWrap label="視野居住" half>
                     <StyledSelect value={form.viewType} onChange={v => set('viewType', v)} options={VIEW_TYPES} placeholder="請選擇" />
@@ -530,17 +530,17 @@ export default function ActiveRentalDetailPage() {
 
           {/* ── 費用 ── */}
           <SectionCard title="費用">
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
               {/* 預期租金 + 押金 */}
-              <Box sx={{ display: 'flex', gap: 2 }}>
+              <Box sx={{ display: 'flex', gap: 4 }}>
                 <Box sx={{ flex: 1 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
                     <FieldLabel label="預期租金" required />
                     <Typography sx={{ fontSize: '12px', color: 'var(--color-secondary)' }}>
                       租金水準區間表上限：{expectedRentUpperLimit.toLocaleString()}
                     </Typography>
                   </Box>
-                  <Box sx={{ display: 'flex', gap: 1 }}>
+                  <Box sx={{ display: 'flex', gap: 2 }}>
                     <StyledInput value={form.expectedRent} onChange={v => set('expectedRent', v)} />
                     <Button
                       type="button"
@@ -565,14 +565,14 @@ export default function ActiveRentalDetailPage() {
                 </FieldWrap>
               </Box>
               {/* 租金含括 + 管理費 */}
-              <Box sx={{ display: 'flex', gap: 2 }}>
+              <Box sx={{ display: 'flex', gap: 4 }}>
                 <MultiChips label="租金含括" options={RENT_INCLUDES_OPTIONS} selected={form.rentIncludes} onChange={v => set('rentIncludes', v)} />
                 <FieldWrap label="管理費（每月）" half>
                   <StyledInput value={form.managementFee} onChange={v => set('managementFee', v)} />
                 </FieldWrap>
               </Box>
               {/* 最短租期 + 可入住日期 */}
-              <Box sx={{ display: 'flex', gap: 2 }}>
+              <Box sx={{ display: 'flex', gap: 4 }}>
                 <FieldWrap label="最短租期" required half>
                   <StyledSelect value={form.minLeasePeriod} onChange={v => set('minLeasePeriod', v)} options={MIN_LEASE_OPTIONS} placeholder="請選擇" />
                 </FieldWrap>
@@ -616,7 +616,7 @@ function AddressRow({ form, set }: { form: PropertyFormData; set: <K extends key
   return (
     <Box>
       <FieldLabel label="門牌地址" required />
-      <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', alignItems: 'center' }}>
+      <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', alignItems: 'center' }}>
         <TextField value={form.addressZip ?? ''} onChange={e => set('addressZip', e.target.value)} size="small" placeholder="郵遞區號" sx={{ ...inputSx, width: '100px' }} />
         <Select value={form.addressCity ?? ''} onChange={e => set('addressCity', e.target.value)} displayEmpty size="small" sx={{ ...selectSx, width: '120px' }}>
           <MenuItem value="" disabled sx={{ fontSize: '14px', color: 'rgba(0,0,0,0.38)' }}>縣市</MenuItem>
@@ -660,10 +660,10 @@ function AddressRow({ form, set }: { form: PropertyFormData; set: <K extends key
 
 function LotHouseRow({ form, set }: { form: PropertyFormData; set: <K extends keyof PropertyFormData>(k: K, v: PropertyFormData[K]) => void }) {
   return (
-    <Box sx={{ display: 'flex', gap: 2 }}>
+    <Box sx={{ display: 'flex', gap: 4 }}>
       <Box sx={{ flex: 1 }}>
         <FieldLabel label="坐落地號" required />
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <StyledInput value={form.lotMain} onChange={v => set('lotMain', v)} placeholder="0000" />
           <Typography sx={{ fontSize: '14px', color: '#124a57' }}>-</Typography>
           <StyledInput value={form.lotSub} onChange={v => set('lotSub', v)} placeholder="00000" />
@@ -671,7 +671,7 @@ function LotHouseRow({ form, set }: { form: PropertyFormData; set: <K extends ke
       </Box>
       <Box sx={{ flex: 1 }}>
         <FieldLabel label="建號" required />
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <StyledInput value={form.houseNoMain} onChange={v => set('houseNoMain', v)} placeholder="00000" />
           <Typography sx={{ fontSize: '14px', color: '#124a57' }}>-</Typography>
           <StyledInput value={form.houseNoSub} onChange={v => set('houseNoSub', v)} placeholder="000" />
@@ -683,7 +683,7 @@ function LotHouseRow({ form, set }: { form: PropertyFormData; set: <K extends ke
 
 function CoordAreaRow({ form, set }: { form: PropertyFormData; set: <K extends keyof PropertyFormData>(k: K, v: PropertyFormData[K]) => void }) {
   return (
-    <Box sx={{ display: 'flex', gap: 2 }}>
+    <Box sx={{ display: 'flex', gap: 4 }}>
       <FieldWrap label="地址座標 (x)" required half>
         <StyledInput value={form.coordX} onChange={v => set('coordX', v)} />
       </FieldWrap>
@@ -696,13 +696,13 @@ function CoordAreaRow({ form, set }: { form: PropertyFormData; set: <K extends k
 
 function ShareRow({ form, set }: { form: PropertyFormData; set: <K extends keyof PropertyFormData>(k: K, v: PropertyFormData[K]) => void }) {
   return (
-    <Box sx={{ display: 'flex', gap: 2 }}>
+    <Box sx={{ display: 'flex', gap: 4 }}>
       <FieldWrap label="實際使用面積 (平方公尺)" required half>
         <StyledInput value={form.actualArea} onChange={v => set('actualArea', v)} />
       </FieldWrap>
       <FieldWrap half>
         <FieldLabel label="建物持分比" required />
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <StyledInput value={form.shareNumerator} onChange={v => set('shareNumerator', v)} placeholder="分子" />
           <Typography sx={{ fontSize: '14px', color: '#124a57', px: 0.5 }}>/</Typography>
           <StyledInput value={form.shareDenominator} onChange={v => set('shareDenominator', v)} placeholder="分母" />

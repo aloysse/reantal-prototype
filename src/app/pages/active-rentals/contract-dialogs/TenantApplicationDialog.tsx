@@ -26,6 +26,8 @@ import {
   radioSx,
   greenBtnSx,
   outlineBtnSx,
+  CONTRACT_DIALOG_HEIGHT,
+  CONTRACT_DIALOG_MAX_HEIGHT,
 } from './contractDialogUtils';
 
 const ATTACH_SECTIONS = [
@@ -70,7 +72,7 @@ export default function TenantApplicationDialog({ open, onClose }: Props) {
 
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth
-      slotProps={{ paper: { sx: { borderRadius: '16px', p: 1 } } }}>
+      slotProps={{ paper: { sx: { borderRadius: '16px', p: 1, height: `${CONTRACT_DIALOG_HEIGHT}px`, maxHeight: CONTRACT_DIALOG_MAX_HEIGHT } } }}>
       <DialogTitle sx={{ pb: 1 }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Typography sx={{ fontSize: '22px', fontWeight: 600, color: '#124a57' }}>
@@ -82,12 +84,12 @@ export default function TenantApplicationDialog({ open, onClose }: Props) {
         </Box>
       </DialogTitle>
 
-      <DialogContent>
-        <StepIndicator total={2} current={step} />
+      <DialogContent sx={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: 540 }}>
+        <StepIndicator total={2} current={step} onStepClick={setStep} />
 
         {/* Step 1：基本資訊 */}
         {step === 1 && (
-          <SectionCard title="基本資訊">
+          <SectionCard title="基本資訊" sx={{ flex: 1, mb: 0 }}>
             <Typography sx={{ fontSize: '13px', color: 'rgba(36,53,82,0.6)', mb: 0.5 }}>
               出租人註記
             </Typography>
@@ -144,7 +146,7 @@ export default function TenantApplicationDialog({ open, onClose }: Props) {
 
         {/* Step 2：檢附文件檢核 */}
         {step === 2 && (
-          <SectionCard title="檢附文件檢核">
+          <SectionCard title="檢附文件檢核" sx={{ flex: 1, mb: 0 }}>
             {ATTACH_SECTIONS.map(section => (
               <Box key={section.label} sx={{ mb: 2 }}>
                 <Typography sx={{ fontSize: '13px', color: 'rgba(36,53,82,0.6)', mb: 0.5 }}>

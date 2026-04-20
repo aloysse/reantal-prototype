@@ -95,7 +95,7 @@ const selectSx = {
 
 const checkboxSx = {
   color: COLOR.textDisabled,
-  '&.Mui-checked': { color: COLOR.primary },
+  '&.Mui-checked': { color: COLOR.secondary },
   padding: '4px',
 };
 
@@ -186,7 +186,7 @@ function ImageUploadBtn() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: 1,
+        gap: '4px',
         bgcolor: COLOR.white,
         border: '1px solid rgba(0,0,0,0.23)',
         borderRadius: '8px',
@@ -261,8 +261,10 @@ function ToggleBtnGroup({
   return (
     <Box
       sx={{
-        display: 'flex',
-        border: `1px solid ${COLOR.primary}`,
+        display: 'inline-flex',
+        width: 'fit-content',
+        maxWidth: '100%',
+        border: `1px solid ${COLOR.secondary}`,
         borderRadius: '8px',
         overflow: 'hidden',
       }}
@@ -279,10 +281,10 @@ function ToggleBtnGroup({
             fontWeight: 500,
             cursor: 'pointer',
             border: 'none',
-            borderLeft: i > 0 ? `1px solid ${COLOR.primary}` : 'none',
-            bgcolor: value === opt ? COLOR.primaryLight : 'transparent',
-            color: value === opt ? COLOR.white : COLOR.primary,
-            '&:hover': { bgcolor: value === opt ? COLOR.primaryLight : 'rgba(49,160,232,0.08)' },
+            borderLeft: i > 0 ? `1px solid ${COLOR.secondary}` : 'none',
+            bgcolor: value === opt ? COLOR.secondary : 'transparent',
+            color: value === opt ? COLOR.white : COLOR.secondary,
+            '&:hover': { bgcolor: value === opt ? COLOR.secondary : 'rgba(107,201,124,0.12)' },
           }}
         >
           {opt}
@@ -338,7 +340,7 @@ function NavButtons({
             fontWeight: 500,
             height: '37px',
             px: 2.5,
-            gap: 1,
+            gap: '4px',
             '&:hover': { bgcolor: '#6bc97c' },
             boxShadow: 'none',
           }}
@@ -711,7 +713,7 @@ function Step2Condition({ onBack, onNext }: { onBack: () => void; onNext: () => 
               onChange={setLayoutType}
             />
           </Box>
-          <Box sx={{ display: 'flex', gap: 1, alignItems: 'flex-end' }}>
+          <Box sx={{ display: 'flex', gap: '4px', alignItems: 'flex-end' }}>
             <Box>
               <FieldLabel label="" />
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
@@ -946,7 +948,7 @@ function Step4Furniture({ onBack, onNext }: { onBack: () => void; onNext: () => 
           {APPLIANCE_ROWS.map((row, ri) => (
             <Box key={ri} sx={{ display: 'flex', gap: 2 }}>
               {row.map(item => (
-                <Box key={item} sx={{ flex: 1, display: 'flex', gap: 1, alignItems: 'flex-end' }}>
+                <Box key={item} sx={{ flex: 1, display: 'flex', gap: '4px', alignItems: 'flex-end' }}>
                   <Box sx={{ flex: 1 }}>
                     <FieldLabel label={item} />
                     <TextField

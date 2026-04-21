@@ -97,23 +97,23 @@ export default function SubLeaseContractDialog({ open, onClose }: Props) {
         {/* ── Step 1：基本資訊 ─────────────────────────────────────────── */}
         {step === 1 && (
           <SectionCard title="基本資訊" sx={{ flex: 1, mb: 0 }}>
-            <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+            <Box sx={{ display: 'flex', gap: 4, mb: 4 }}>
               <Box sx={{ flex: 1 }}>
-                <Typography sx={{ fontSize: '13px', color: 'rgba(36,53,82,0.6)', mb: 0.5 }}>
+                <Typography sx={{ fontSize: '13px', color: 'rgba(36,53,82,0.6)', mb: 2 }}>
                   契約簽訂日 <span style={{ color: 'red' }}>*</span>
                 </Typography>
                 <TextField value={signDate} onChange={e => setSignDate(e.target.value)}
                   placeholder="YYYY-MM-DD" sx={{ ...inputSx, width: '100%' }} />
               </Box>
               <Box sx={{ flex: 1 }}>
-                <Typography sx={{ fontSize: '13px', color: 'rgba(36,53,82,0.6)', mb: 0.5 }}>
+                <Typography sx={{ fontSize: '13px', color: 'rgba(36,53,82,0.6)', mb: 2 }}>
                   契約審閱日 <span style={{ color: 'red' }}>*</span>
                 </Typography>
                 <TextField value={reviewDate} onChange={e => setReviewDate(e.target.value)}
                   placeholder="YYYY-MM-DD" sx={{ ...inputSx, width: '100%' }} />
               </Box>
               <Box sx={{ width: 160 }}>
-                <Typography sx={{ fontSize: '13px', color: 'rgba(36,53,82,0.6)', mb: 0.5 }}>
+                <Typography sx={{ fontSize: '13px', color: 'rgba(36,53,82,0.6)', mb: 2 }}>
                   審閱天數 (最少3天) <span style={{ color: 'red' }}>*</span>
                 </Typography>
                 <TextField value={reviewDays} onChange={e => setReviewDays(e.target.value)}
@@ -121,10 +121,10 @@ export default function SubLeaseContractDialog({ open, onClose }: Props) {
               </Box>
             </Box>
 
-            <Typography sx={{ fontSize: '13px', color: 'rgba(36,53,82,0.6)', mb: 0.5 }}>
+            <Typography sx={{ fontSize: '13px', color: 'rgba(36,53,82,0.6)', mb: 2 }}>
               租賃期間 <span style={{ color: 'red' }}>*</span>
             </Typography>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 4 }}>
               <TextField value={rentStart} onChange={e => setRentStart(e.target.value)}
                 placeholder="YYYY-MM-DD" sx={{ ...inputSx, flex: 1 }} />
               <MdArrowRightAlt size={20} color="rgba(36,53,82,0.5)" />
@@ -132,14 +132,15 @@ export default function SubLeaseContractDialog({ open, onClose }: Props) {
                 placeholder="YYYY-MM-DD" sx={{ ...inputSx, flex: 1 }} />
             </Box>
 
-            <Box sx={{ display: 'flex', gap: 2, mb: 2, alignItems: 'flex-end' }}>
+            <Box sx={{ display: 'flex', gap: 4, mb: 4, alignItems: 'flex-end' }}>
               <Box>
-                <Typography sx={{ fontSize: '13px', color: 'rgba(36,53,82,0.6)', mb: 0.5 }}>
+                <Typography sx={{ fontSize: '13px', color: 'rgba(36,53,82,0.6)', mb: 2 }}>
                   有無提前終止租約之約定 <span style={{ color: 'red' }}>*</span>
                 </Typography>
                 <Box sx={{ display: 'flex', border: '1px solid #81d394', borderRadius: '8px', overflow: 'hidden' }}>
                   {['有', '無'].map((opt, i) => (
                     <Box key={opt} component="button" onClick={() => setEarlyTerminate(opt)} sx={{
+                      flex: 1,
                       height: 37, px: 2.5, fontSize: '14px', fontWeight: 500, cursor: 'pointer',
                       bgcolor: earlyTerminate === opt ? '#81d394' : 'transparent',
                       color:   earlyTerminate === opt ? '#fff'    : '#81d394',
@@ -152,7 +153,7 @@ export default function SubLeaseContractDialog({ open, onClose }: Props) {
                 </Box>
               </Box>
               <Box sx={{ flex: 1 }}>
-                <Typography sx={{ fontSize: '13px', color: 'rgba(36,53,82,0.6)', mb: 0.5 }}>
+                <Typography sx={{ fontSize: '13px', color: 'rgba(36,53,82,0.6)', mb: 2 }}>
                   提前終止之備註 <span style={{ color: 'red' }}>*</span>
                 </Typography>
                 <Select value={earlyNote} onChange={e => setEarlyNote(e.target.value)}
@@ -164,20 +165,22 @@ export default function SubLeaseContractDialog({ open, onClose }: Props) {
               </Box>
             </Box>
 
-            <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+            <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
               <Box sx={{ flex: 1 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 0.5 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 4, mb: 2 }}>
                   <Typography sx={{ fontSize: '13px', color: 'rgba(36,53,82,0.6)' }}>
                     每月租金 <span style={{ color: 'red' }}>*</span>
                   </Typography>
-                  <MdInfoOutline size={14} color="#31a0e8" />
-                  <Typography sx={{ fontSize: '12px', color: '#31a0e8' }}>同步於物件資料</Typography>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5}}>
+                    <MdInfoOutline size={14} color="#31a0e8" />
+                    <Typography sx={{ fontSize: '12px', color: '#31a0e8' }}>同步於物件資料</Typography>
+                  </Box>
                 </Box>
                 <TextField value={monthRent} onChange={e => setMonthRent(e.target.value)}
                   sx={{ ...inputSx, width: '100%' }} />
               </Box>
               <Box sx={{ flex: 1 }}>
-                <Typography sx={{ fontSize: '13px', color: 'rgba(36,53,82,0.6)', mb: 0.5 }}>
+                <Typography sx={{ fontSize: '13px', color: 'rgba(36,53,82,0.6)', mb: 2 }}>
                   每月支付日 <span style={{ color: 'red' }}>*</span>
                 </Typography>
                 <TextField value={payDay} onChange={e => setPayDay(e.target.value)}
@@ -185,7 +188,7 @@ export default function SubLeaseContractDialog({ open, onClose }: Props) {
               </Box>
             </Box>
 
-            <Typography sx={{ fontSize: '13px', color: 'rgba(36,53,82,0.6)', mb: 0.5 }}>
+            <Typography sx={{ fontSize: '13px', color: 'rgba(36,53,82,0.6)', mb: 2 }}>
               租金支付方式 <span style={{ color: 'red' }}>*</span>
             </Typography>
             <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-end' }}>
@@ -197,7 +200,7 @@ export default function SubLeaseContractDialog({ open, onClose }: Props) {
               </RadioGroup>
               {payMethod === '其他' && (
                 <Box sx={{ flex: 1 }}>
-                  <Typography sx={{ fontSize: '13px', color: 'rgba(36,53,82,0.6)', mb: 0.5 }}>
+                  <Typography sx={{ fontSize: '13px', color: 'rgba(36,53,82,0.6)', mb: 2 }}>
                     其他方式 <span style={{ color: 'red' }}>*</span>
                   </Typography>
                   <Select value={payOther} onChange={e => setPayOther(e.target.value)}

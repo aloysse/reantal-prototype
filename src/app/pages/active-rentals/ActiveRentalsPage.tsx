@@ -167,8 +167,6 @@ export default function ActiveRentalsPage() {
                 borderRadius: '8px',
                 fontSize: '14px',
                 fontWeight: 500,
-                px: 2,
-                py: 0.75,
                 height: '37px',
                 boxShadow: '0px 1px 5px rgba(0,0,0,0.12), 0px 2px 2px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.2)',
                 '&:hover': { bgcolor: '#2090d8' },
@@ -179,7 +177,7 @@ export default function ActiveRentalsPage() {
             </Button>
 
             {/* Search */}
-            <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+            <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
               <TextField
                 placeholder="關鍵字搜尋"
                 size="small"
@@ -213,7 +211,6 @@ export default function ActiveRentalsPage() {
                   borderRadius: '8px',
                   fontSize: '14px',
                   fontWeight: 500,
-                  px: 2,
                   height: '37px',
                   minWidth: 'auto',
                   boxShadow: '0px 1px 5px rgba(0,0,0,0.12), 0px 2px 2px rgba(0,0,0,0.14)',

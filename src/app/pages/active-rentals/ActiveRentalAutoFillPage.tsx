@@ -1,5 +1,6 @@
 import { Box, Typography, Alert } from '@mui/material';
 import PageContainer from '../../components/PageContainer';
+import SectionCard from '../../components/SectionCard';
 import { MdOpenInNew } from 'react-icons/md';
 import { useParams } from 'react-router-dom';
 import { properties } from '../../data/mockData';
@@ -14,7 +15,6 @@ export default function ActiveRentalAutoFillPage() {
   const { id } = useParams<{ id: string }>();
   const isNew = id === 'new';
   const property = isNew ? null : properties.find(p => p.id === id);
-  const statusTags = isNew ? [{ date: '', label: 'New' }] : (property?.statusTags ?? []);
 
   return (
     <PageContainer>
@@ -42,7 +42,7 @@ export default function ActiveRentalAutoFillPage() {
           ))}
         </Box>
       )} */}
-      <Box sx={{ bgcolor: '#ffffff', borderRadius: '12px', p: 3, boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
+      <SectionCard title="自動填表">
 
         {/* 警告提示 */}
         <Alert severity="warning" sx={{ mb: 4, fontSize: '14px' }}>
@@ -66,7 +66,7 @@ export default function ActiveRentalAutoFillPage() {
               target="_blank"
               rel="noopener noreferrer"
               sx={{
-                width: 140, height: 140,
+                width: 180, height: 140,
                 bgcolor: '#81d394',
                 borderRadius: '8px',
                 display: 'flex',
@@ -98,7 +98,7 @@ export default function ActiveRentalAutoFillPage() {
           ))}
         </Box>
 
-      </Box>
+      </SectionCard>
     </PageContainer>
   );
 }

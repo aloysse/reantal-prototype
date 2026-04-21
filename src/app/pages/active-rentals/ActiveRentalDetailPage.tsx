@@ -241,7 +241,7 @@ function ImageUpload({ value, onChange }: { value?: string; onChange?: (url: str
       ) : (
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
           <MdFileUpload size={24} color="rgba(36,53,82,0.6)" />
-          <Typography sx={{ fontSize: '16px', color: 'rgba(36,53,82,0.6)' }}>Ai 建檔快手</Typography>
+          <Typography sx={{ fontSize: '14px', color: 'rgba(36,53,82,0.6)' }}>Ai 建檔快手</Typography>
         </Box>
       )}
       <Box sx={{ width: '100%', height: '28px', bgcolor: '#e8f6ff', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>

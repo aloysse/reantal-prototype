@@ -72,7 +72,7 @@ const selectSx = {
 
 function FieldLabel({ label, required }: { label: string; required?: boolean }) {
   return (
-    <Typography sx={{ fontSize: '14px', color: 'rgba(36,53,82,0.6)', lineHeight: '22px', mb: 1 }}>
+    <Typography sx={{ fontSize: '14px', color: 'rgba(36,53,82,0.6)', lineHeight: '22px', mb: 2 }}>
       {label}
       {required && <span style={{ color: '#fc4b6c', marginLeft: 2 }}>*</span>}
     </Typography>
@@ -171,7 +171,7 @@ function ImageUpload({ label, required }: { label?: string; required?: boolean }
       >
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 0.5, py: 1 }}>
           <MdFileUpload size={24} color="rgba(36,53,82,0.4)" />
-          <Typography sx={{ fontSize: '16px', color: 'rgba(36,53,82,0.6)' }}>Ai 建檔快手</Typography>
+          <Typography sx={{ fontSize: '14px', color: 'rgba(36,53,82,0.6)' }}>Ai 建檔快手</Typography>
         </Box>
         <Box sx={{
           width: '100%',
@@ -514,8 +514,8 @@ function LandlordBasicInfoCard({
   return (
     <SectionCard title="出租人基本資料">
       {/* 身份類型切換 */}
-      <Box sx={{ mb: 3 }}>
-        <Typography sx={{ fontSize: '14px', color: 'rgba(36,53,82,0.6)', mb: 1 }}>身份類型</Typography>
+      <Box sx={{ mb: 4 }}>
+        <Typography sx={{ fontSize: '14px', color: 'rgba(36,53,82,0.6)', mb: 2 }}>身份類型</Typography>
         <BinaryToggle
           value={landlord.personType}
           options={[{ label: '自然人', value: 'natural' }, { label: '法人', value: 'legal' }]}
@@ -525,17 +525,17 @@ function LandlordBasicInfoCard({
 
       {landlord.personType === 'natural' ? (
         /* ── 自然人 ── */
-        <Box sx={{ display: 'flex', gap: 4, alignItems: 'flex-start' }}>
+        <Box sx={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
           {/* 左側：證件上傳 */}
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5, width: '220px', flexShrink: 0 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, width: '320px', flexShrink: 0 }}>
             <ImageUpload label="身分證正面" required />
             <ImageUpload label="身分證反面" required />
           </Box>
 
           {/* 右側：欄位 */}
-          <Box sx={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <Box sx={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
             {/* 性別 + 姓名 */}
-            <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-end' }}>
+            <Box sx={{ display: 'flex', gap: 4, alignItems: 'flex-end' }}>
               <Box sx={{ flexShrink: 0 }}>
                 <Typography sx={{ fontSize: '14px', color: 'rgba(36,53,82,0.6)', mb: 1 }}>性別</Typography>
                 <BinaryToggle
@@ -550,7 +550,7 @@ function LandlordBasicInfoCard({
             </Box>
 
             {/* 身分證字號 + 出生日期 */}
-            <Box sx={{ display: 'flex', gap: 2 }}>
+            <Box sx={{ display: 'flex', gap: 4 }}>
               <FieldWrap label="身分證字號" required half>
                 <StyledInput value={landlord.idNumber} onChange={v => set('idNumber', v)} />
               </FieldWrap>
@@ -560,7 +560,7 @@ function LandlordBasicInfoCard({
             </Box>
 
             {/* 市話日 + 市話夜 */}
-            <Box sx={{ display: 'flex', gap: 2 }}>
+            <Box sx={{ display: 'flex', gap: 4 }}>
               <FieldWrap label="市話 (日)" required half>
                 <StyledInput value={landlord.dayPhone} onChange={v => set('dayPhone', v)} />
               </FieldWrap>
@@ -570,7 +570,7 @@ function LandlordBasicInfoCard({
             </Box>
 
             {/* 手機 + Email */}
-            <Box sx={{ display: 'flex', gap: 2 }}>
+            <Box sx={{ display: 'flex', gap: 4 }}>
               <FieldWrap label="手機" half>
                 <StyledInput value={landlord.phone} onChange={v => set('phone', v)} />
               </FieldWrap>
@@ -604,7 +604,6 @@ function LandlordBasicInfoCard({
                     fontSize: '14px',
                     fontWeight: 500,
                     height: '37px',
-                    px: 2,
                     minWidth: 0,
                     borderRadius: '8px',
                     whiteSpace: 'nowrap',
@@ -620,16 +619,16 @@ function LandlordBasicInfoCard({
         </Box>
       ) : (
         /* ── 法人 ── */
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-          <Box sx={{ display: 'flex', gap: 4, alignItems: 'flex-start' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <Box sx={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
             {/* 左側：公司登記影本 */}
-            <Box sx={{ width: '220px', flexShrink: 0 }}>
+            <Box sx={{ width: '320px', flexShrink: 0 }}>
               <ImageUpload label="公司登記事項表影本" required />
             </Box>
 
             {/* 右側：公司資料 */}
-            <Box sx={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 2 }}>
-              <Box sx={{ display: 'flex', gap: 2 }}>
+            <Box sx={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
+              <Box sx={{ display: 'flex', gap: 4 }}>
                 <FieldWrap label="法人名稱" required half>
                   <StyledInput value={landlord.companyName} onChange={v => set('companyName', v)} />
                 </FieldWrap>
@@ -637,7 +636,7 @@ function LandlordBasicInfoCard({
                   <StyledInput value={landlord.representative} onChange={v => set('representative', v)} />
                 </FieldWrap>
               </Box>
-              <Box sx={{ display: 'flex', gap: 2 }}>
+              <Box sx={{ display: 'flex', gap: 4 }}>
                 <FieldWrap label="統一編號" required half>
                   <StyledInput value={landlord.taxId} onChange={v => set('taxId', v)} />
                 </FieldWrap>
@@ -655,7 +654,7 @@ function LandlordBasicInfoCard({
           </Box>
 
           {/* 身分證（代表人）正反面 */}
-          <Box sx={{ display: 'flex', gap: 3 }}>
+          <Box sx={{ display: 'flex', gap: 4 }}>
             <Box sx={{ flex: 1 }}>
               <ImageUpload label="身分證正面" required />
             </Box>
@@ -681,15 +680,15 @@ function LandlordBankInfoCard({
   const set = <K extends keyof Landlord>(k: K, v: Landlord[K]) => onChange({ ...landlord, [k]: v });
   return (
     <SectionCard title="出租人匯款資料">
-      <Box sx={{ display: 'flex', gap: 4, alignItems: 'flex-start' }}>
+      <Box sx={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
         {/* 左側：存摺影本 */}
-        <Box sx={{ width: '220px', flexShrink: 0 }}>
+        <Box sx={{ width: '320px', flexShrink: 0 }}>
           <ImageUpload label="存摺影本" required />
         </Box>
 
         {/* 右側：帳戶資料 */}
-        <Box sx={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <Box sx={{ display: 'flex', gap: 2 }}>
+        <Box sx={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <Box sx={{ display: 'flex', gap: 4 }}>
             <FieldWrap label="戶名稱" required half>
               <StyledInput value={landlord.bankHolderName} onChange={v => set('bankHolderName', v)} />
             </FieldWrap>
@@ -697,7 +696,7 @@ function LandlordBankInfoCard({
               <StyledInput value={landlord.bankHolderIdNumber} onChange={v => set('bankHolderIdNumber', v)} />
             </FieldWrap>
           </Box>
-          <Box sx={{ display: 'flex', gap: 2 }}>
+          <Box sx={{ display: 'flex', gap: 4 }}>
             <FieldWrap label="金融單位" required>
               <StyledInput value={landlord.bankInstitution} onChange={v => set('bankInstitution', v)} />
             </FieldWrap>
@@ -764,7 +763,7 @@ function LandlordAgentCard({
       </Box>
 
       {expanded && (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
           {/* 新增代理人按鈕 */}
           <Box>
             <Button
@@ -788,20 +787,20 @@ function LandlordAgentCard({
 
           {/* 代理人列表 */}
           {agents.map((agent, idx) => (
-            <Box key={agent.id} sx={{ display: 'flex', gap: 4, alignItems: 'flex-start' }}>
+            <Box key={agent.id} sx={{ display: 'flex', gap: 8, alignItems: 'flex-start', borderBottom: '1px solid rgba(36,53,82,0.35)', pb: 4 }}>
               {/* 左側：證件上傳 */}
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5, width: '220px', flexShrink: 0 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, width: '320px', flexShrink: 0 }}>
                 <ImageUpload label="身分證正面" required />
                 <ImageUpload label="身分證反面" required />
               </Box>
 
               {/* 右側：欄位 */}
-              <Box sx={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <Box sx={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
                 <Typography sx={{ fontSize: '18px', fontWeight: 500, color: '#124a57' }}>
                   代理人 {idx + 1}
                 </Typography>
 
-                <Box sx={{ display: 'flex', gap: 2 }}>
+                <Box sx={{ display: 'flex', gap: 4 }}>
                   <FieldWrap label="姓名" required half>
                     <StyledInput value={agent.name} onChange={v => updateAgent(agent.id, { name: v })} />
                   </FieldWrap>
@@ -810,7 +809,7 @@ function LandlordAgentCard({
                   </FieldWrap>
                 </Box>
 
-                <Box sx={{ display: 'flex', gap: 2 }}>
+                <Box sx={{ display: 'flex', gap: 4 }}>
                   <FieldWrap label="手機" required half>
                     <StyledInput value={agent.phone} onChange={v => updateAgent(agent.id, { phone: v })} />
                   </FieldWrap>
@@ -931,7 +930,7 @@ export default function ActiveRentalLandlordPage() {
           </Box>
         )}
 
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
 
         {/* ── 空狀態 ── */}
         {!hasLandlord && (

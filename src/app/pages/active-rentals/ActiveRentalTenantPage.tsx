@@ -47,7 +47,7 @@ const inputSx = {
 
 function FieldLabel({ label, required }: { label: string; required?: boolean }) {
   return (
-    <Typography sx={{ fontSize: '12px', color: 'rgba(36,53,82,0.6)', lineHeight: '20px', mb: 0.5 }}>
+    <Typography sx={{ fontSize: '14px', color: 'rgba(36,53,82,0.6)', lineHeight: '22px', mb: 2 }}>
       {label}
       {required && <span style={{ color: '#fc4b6c', marginLeft: 2 }}>*</span>}
     </Typography>
@@ -77,11 +77,11 @@ function ImageUploadBox({ label, required }: { label: string; required?: boolean
           justifyContent: 'space-between',
         }}
       >
-        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
-          <MdFileUpload size={18} color="rgba(36,53,82,0.45)" />
-          <Typography sx={{ fontSize: '12px', color: 'rgba(36,53,82,0.6)' }}>Ai 建檔快手</Typography>
+        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
+          <MdFileUpload size={24} color="rgba(36,53,82,0.45)" />
+          <Typography sx={{ fontSize: '14px', color: 'rgba(36,53,82,0.6)' }}>Ai 建檔快手</Typography>
         </Box>
-        <Box sx={{ height: '22px', bgcolor: '#e8f6ff', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
+        <Box sx={{ height: '22px', bgcolor: '#e8f6ff', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
           <MdAutoFixHigh size={12} color="#0173bd" />
           <Typography sx={{ fontSize: '10px', color: '#0173bd' }}>提供智慧解析，自動帶入資料</Typography>
         </Box>
@@ -261,7 +261,7 @@ function SelectExistingTenantModal({
       </Box>
 
       {/* 搜尋列 */}
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1, mb: 2 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2, mb: 2 }}>
         <TextField
           value={search}
           onChange={e => { setSearch(e.target.value); setPage(1); }}
@@ -287,7 +287,7 @@ function SelectExistingTenantModal({
       </Box>
 
       {/* 表格標題 */}
-      <Box sx={{ display: 'flex', gap: 1, px: 2, py: 0.5, borderBottom: '1px solid rgba(36,53,82,0.35)' }}>
+      <Box sx={{ display: 'flex', gap: 2, px: 2, py: 0.5, borderBottom: '1px solid rgba(36,53,82,0.35)' }}>
         <Box sx={{ width: '38px' }} />
         <Typography sx={{ flex: 1, fontSize: '14px', color: 'rgba(36,53,82,0.6)', fontWeight: 500 }}>姓名</Typography>
         <Typography sx={{ width: '160px', fontSize: '14px', color: 'rgba(36,53,82,0.6)', fontWeight: 500 }}>身分證字號</Typography>
@@ -302,7 +302,7 @@ function SelectExistingTenantModal({
             sx={{
               display: 'flex',
               alignItems: 'center',
-              gap: 1,
+              gap: 2,
               px: 2,
               py: 0.5,
               borderBottom: '1px solid rgba(36,53,82,0.35)',
@@ -423,7 +423,7 @@ export default function ActiveRentalTenantPage() {
         {/* 狀態標籤 */}
         {statusTags.length > 0 && (
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 1.5, mb: 2.5 }}>
-            <Box sx={{ display: 'flex', gap: 1.5 }}>
+            <Box sx={{ display: 'flex', gap: 2 }}>
               {statusTags.map((tag, i) => (
                 <Box
                   key={i}
@@ -456,7 +456,7 @@ export default function ActiveRentalTenantPage() {
           </Box>
         )}
 
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
 
         {/* <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Box sx={{ display: 'flex', gap: 1 }}>
@@ -503,14 +503,14 @@ export default function ActiveRentalTenantPage() {
         ) : (
           <>
             <SectionCard title="承租人基本資料">
-              <Box sx={{ display: 'flex', gap: 2 }}>
-                <Box sx={{ width: '357.5px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <Box sx={{ display: 'flex', gap: 8 }}>
+                <Box sx={{ width: '320px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
                   <ImageUploadBox label="身分證正面" />
                   <ImageUploadBox label="身分證反面" />
                 </Box>
 
-                <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 2 }}>
-                  <Box sx={{ display: 'flex', gap: 2 }}>
+                <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
+                  <Box sx={{ display: 'flex', gap: 4 }}>
                     <Box sx={{ width: '92px' }}>
                       <FieldLabel label="性別" />
                       <Box sx={{ display: 'flex', border: '1px solid #31a0e8', borderRadius: '8px', overflow: 'hidden', height: '37px' }}>
@@ -547,15 +547,15 @@ export default function ActiveRentalTenantPage() {
                     )}
                   </Box>
 
-                  <Box sx={{ display: 'flex', gap: 1 }}>
+                  <Box sx={{ display: 'flex', gap: 4 }}>
                     <TextInput label="身分證字號" required value={tenantForm.idNumber} onChange={v => setTenant('idNumber', v)} />
                     <TextInput label="出生日期" required type="date" value={tenantForm.dob} onChange={v => setTenant('dob', v)} />
                   </Box>
-                  <Box sx={{ display: 'flex', gap: 1 }}>
+                  <Box sx={{ display: 'flex', gap: 4 }}>
                     <TextInput label="市話(日)" required value={tenantForm.dayPhone} onChange={v => setTenant('dayPhone', v)} />
                     <TextInput label="市話(夜)" value={tenantForm.nightPhone} onChange={v => setTenant('nightPhone', v)} />
                   </Box>
-                  <Box sx={{ display: 'flex', gap: 1 }}>
+                  <Box sx={{ display: 'flex', gap: 4 }}>
                     <TextInput label="手機" value={tenantForm.phone} onChange={v => setTenant('phone', v)} />
                     <TextInput label="Email" value={tenantForm.email} onChange={v => setTenant('email', v)} />
                   </Box>
@@ -576,16 +576,16 @@ export default function ActiveRentalTenantPage() {
             </SectionCard>
 
             <SectionCard title="承租人匯款資料">
-              <Box sx={{ display: 'flex', gap: 2 }}>
-                <Box sx={{ width: '357.5px', flexShrink: 0 }}>
-                  <ImageUploadBox label="身分證反面" required />
+              <Box sx={{ display: 'flex', gap: 8 }}>
+                <Box sx={{ width: '320px', flexShrink: 0 }}>
+                  <ImageUploadBox label="存摺影本" required />
                 </Box>
-                <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 1 }}>
-                  <Box sx={{ display: 'flex', gap: 1 }}>
+                <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
+                  <Box sx={{ display: 'flex', gap: 4 }}>
                     <TextInput label="帳戶名稱" required value={tenantForm.bankAccountName} onChange={v => setTenant('bankAccountName', v)} />
                     <TextInput label="身分證字號" required value={tenantForm.bankIdNumber} onChange={v => setTenant('bankIdNumber', v)} />
                   </Box>
-                  <Box sx={{ display: 'flex', gap: 1 }}>
+                  <Box sx={{ display: 'flex', gap: 4 }}>
                     <TextInput label="金融機構" required value={tenantForm.bankCode} onChange={v => setTenant('bankCode', v)} />
                     <TextInput label="分行名稱" required value={tenantForm.bankBranchName} onChange={v => setTenant('bankBranchName', v)} />
                     <TextInput label="分行代碼" required value={tenantForm.bankBranchCode} onChange={v => setTenant('bankBranchCode', v)} />
@@ -596,13 +596,13 @@ export default function ActiveRentalTenantPage() {
             </SectionCard>
 
             <SectionCard title="戶口名簿" green>
-              <Box sx={{ display: 'flex', gap: 2 }}>
-                <Box sx={{ width: '357.5px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <Box sx={{ display: 'flex', gap: 8 }}>
+                <Box sx={{ width: '320px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
                   <ImageUploadBox label="申請人戶口名簿" required />
                   <ImageUploadBox label="配偶戶口名簿" />
                 </Box>
-                <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-                  <Box sx={{ display: 'flex', gap: 1 }}>
+                <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
+                  <Box sx={{ display: 'flex', gap: 4 }}>
                     <TextInput label="申請人戶口名稱" required value={tenantForm.applicantHouseholdName} onChange={v => setTenant('applicantHouseholdName', v)} />
                     <TextInput label="申請人戶號" required value={tenantForm.applicantRelation} onChange={v => setTenant('applicantRelation', v)} />
                     <TextInput label="配偶戶戶名號" value={tenantForm.spouseHouseholdNo} onChange={v => setTenant('spouseHouseholdNo', v)} />
@@ -617,27 +617,27 @@ export default function ActiveRentalTenantPage() {
                   </Button>
 
                   <Box sx={{ borderTop: '1px solid rgba(36,53,82,0.2)', borderBottom: '1px solid rgba(36,53,82,0.2)' }}>
-                    <Box sx={{ display: 'grid', gridTemplateColumns: '100px 100px 120px 120px 1fr 127px', p: 1, gap: 1 }}>
+                    <Box sx={{ display: 'grid', gridTemplateColumns: '100px 100px 120px 120px 1fr 127px', p: 2, gap: 2 }}>
                       {['姓名', '身分證字號', '出生年月日', '稱謂', '身分類別 (註)', '編輯'].map(h => <TinyText key={h}>{h}</TinyText>)}
                     </Box>
                     {(tenantForm.familyMembers ?? []).map(member => (
-                      <Box key={member.id} sx={{ display: 'grid', gridTemplateColumns: '100px 100px 120px 120px 1fr 127px', p: 1, gap: 1, alignItems: 'center', borderTop: '1px solid rgba(36,53,82,0.12)' }}>
+                      <Box key={member.id} sx={{ display: 'grid', gridTemplateColumns: '100px 100px 120px 120px 1fr 127px', p: 2, gap: 2, alignItems: 'center', borderTop: '1px solid rgba(36,53,82,0.12)' }}>
                         <TinyText>{member.name}</TinyText>
                         <TinyText>{member.idNumber}</TinyText>
                         <TinyText>{member.dob}</TinyText>
                         <TinyText>{member.relation}</TinyText>
                         <TinyText>{member.identityType}</TinyText>
-                        <Box sx={{ display: 'flex', gap: 0.5, justifyContent: 'center' }}>
+                        <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center' }}>
                           <IconButton size="small"><MdEdit size={16} color="#81d394" /></IconButton>
                           <IconButton size="small"><MdDelete size={16} color="#81d394" /></IconButton>
                         </Box>
                       </Box>
                     ))}
-                    <Box sx={{ display: 'grid', gridTemplateColumns: '100px 100px 120px 120px 1fr 127px', p: 1, gap: 1, alignItems: 'center', borderTop: '1px solid rgba(36,53,82,0.12)' }}>
+                    <Box sx={{ display: 'grid', gridTemplateColumns: '100px 100px 120px 120px 1fr 127px', p: 1, gap: 2, alignItems: 'center', borderTop: '1px solid rgba(36,53,82,0.12)' }}>
                       {['姓名', '身分證字號', '出生年月日', '稱謂', '選擇身分類別'].map((ph, i) => (
                         <TextField key={i} placeholder={ph} sx={inputSx} />
                       ))}
-                      <Box sx={{ display: 'flex', gap: 0.5, justifyContent: 'center' }}>
+                      <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center' }}>
                         <IconButton size="small"><MdSave size={16} color="#81d394" /></IconButton>
                         <IconButton size="small"><MdClose size={16} color="#81d394" /></IconButton>
                       </Box>
@@ -656,11 +656,11 @@ export default function ActiveRentalTenantPage() {
                 新增
               </Button>
               <Box sx={{ borderTop: '1px solid rgba(36,53,82,0.2)', borderBottom: '1px solid rgba(36,53,82,0.2)' }}>
-                <Box sx={{ display: 'grid', gridTemplateColumns: '100px 1fr 120px 60px 150px 100px 127px', p: 1, gap: 1 }}>
+                <Box sx={{ display: 'grid', gridTemplateColumns: '100px 1fr 120px 60px 150px 100px 127px', p: 2, gap: 2 }}>
                   {['持有者', '房屋所在地址', '總面積 (平方公尺)', '持分比', '持分面積 (平方公尺)', '家人設籍於此', '編輯'].map(h => <TinyText key={h}>{h}</TinyText>)}
                 </Box>
                 {(tenantForm.propertyHoldings ?? []).map(item => (
-                  <Box key={item.id} sx={{ display: 'grid', gridTemplateColumns: '100px 1fr 120px 60px 150px 100px 127px', p: 1, gap: 1, alignItems: 'center', borderTop: '1px solid rgba(36,53,82,0.12)' }}>
+                  <Box key={item.id} sx={{ display: 'grid', gridTemplateColumns: '100px 1fr 120px 60px 150px 100px 127px', p: 2, gap: 2, alignItems: 'center', borderTop: '1px solid rgba(36,53,82,0.12)' }}>
                     <TinyText>{item.holder}</TinyText>
                     <TinyText>{item.address}</TinyText>
                     <TinyText>{item.totalArea}</TinyText>
@@ -669,13 +669,13 @@ export default function ActiveRentalTenantPage() {
                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                       {item.familyRegistered ? <MdOutlineCheck size={16} color="#124a57" /> : null}
                     </Box>
-                    <Box sx={{ display: 'flex', gap: 0.5, justifyContent: 'center' }}>
+                    <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center' }}>
                       <IconButton size="small"><MdEdit size={16} color="#81d394" /></IconButton>
                       <IconButton size="small"><MdDelete size={16} color="#81d394" /></IconButton>
                     </Box>
                   </Box>
                 ))}
-                <Box sx={{ display: 'grid', gridTemplateColumns: '100px 1fr 120px 60px 150px 100px 127px', p: 1, gap: 1, alignItems: 'center', borderTop: '1px solid rgba(36,53,82,0.12)' }}>
+                <Box sx={{ display: 'grid', gridTemplateColumns: '100px 1fr 120px 60px 150px 100px 127px', p: 1, gap: 2, alignItems: 'center', borderTop: '1px solid rgba(36,53,82,0.12)' }}>
                   <TextField placeholder="姓名" sx={inputSx} />
                   <TextField placeholder="地址" sx={inputSx} />
                   <TextField placeholder="總面積" sx={inputSx} />
@@ -684,7 +684,7 @@ export default function ActiveRentalTenantPage() {
                   <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                     <Checkbox size="small" />
                   </Box>
-                  <Box sx={{ display: 'flex', gap: 0.5, justifyContent: 'center' }}>
+                  <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center' }}>
                     <IconButton size="small"><MdSave size={16} color="#81d394" /></IconButton>
                     <IconButton size="small"><MdClose size={16} color="#81d394" /></IconButton>
                   </Box>

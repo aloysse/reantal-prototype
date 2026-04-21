@@ -23,7 +23,7 @@ export default function SectionCard({
   return (
     <Box
       sx={{
-        p: 4,
+        p: 8,
         borderRadius: '16px',
         boxShadow: '1px 3px 7px 0px rgba(17,28,45,0.18)',
         bgcolor: green ? '#fafffb' : '#fafafa',

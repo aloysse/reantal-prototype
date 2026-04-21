@@ -55,7 +55,7 @@ const SUB_PATH_TO_STEP: Record<string, number> = {
 };
 
 // 次導覽列高度（固定值，對應 StepsBar 高度：py:2 × 2 + minHeight:80）
-const STEPS_BAR_HEIGHT = 112;
+const STEPS_BAR_HEIGHT = 90;
 
 // ─── StepsBar ────────────────────────────────────────────────────────────────
 
@@ -246,7 +246,7 @@ export default function ActiveRentalsLayout() {
       <Box
         sx={{
           position: 'fixed',
-          top: '56px',
+          top: '70px',
           left: 0,
           right: 0,
           zIndex: 1100,
@@ -255,7 +255,7 @@ export default function ActiveRentalsLayout() {
           transition: 'box-shadow 180ms ease',
         }}
       >
-        <Box sx={{ maxWidth: '1584px', mx: 'auto', px: 3 }}>
+        <Box sx={{ maxWidth: '1584px', mx: 'auto', px: 4 }}>
           <StepsBar
             steps={stepsWithPath}
             currentStepNumber={currentStepNumber}
@@ -282,7 +282,6 @@ export default function ActiveRentalsLayout() {
               fontWeight: 500,
               fontSize: '15px',
               letterSpacing: '0.46px',
-              px: 2,
               gap: 1,
               boxShadow: '0px 1px 18px rgba(0,0,0,0.12), 0px 6px 10px rgba(0,0,0,0.14), 0px 3px 5px -1px rgba(0,0,0,0.2)',
               '&:hover': { bgcolor: '#2090d8' },
@@ -328,7 +327,6 @@ export default function ActiveRentalsLayout() {
               fontSize: '15px',
               letterSpacing: '0.46px',
               textTransform: 'uppercase',
-              px: 2,
               gap: 1,
               boxShadow: '0px 1px 18px rgba(0,0,0,0.12), 0px 6px 10px rgba(0,0,0,0.14), 0px 3px 5px -1px rgba(0,0,0,0.2)',
               '&:hover': { bgcolor: 'rgba(49,160,232,0.06)' },
@@ -350,7 +348,6 @@ export default function ActiveRentalsLayout() {
               fontSize: '15px',
               letterSpacing: '0.46px',
               textTransform: 'uppercase',
-              px: 2,
               gap: 1,
               boxShadow: '0px 1px 18px rgba(0,0,0,0.12), 0px 6px 10px rgba(0,0,0,0.14), 0px 3px 5px -1px rgba(0,0,0,0.2)',
               '&:hover': { bgcolor: '#2090d8' },

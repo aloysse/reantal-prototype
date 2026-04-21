@@ -38,6 +38,7 @@ import {
   type DocumentType,
 } from '../../data/mockData';
 import PageContainer from '../../components/PageContainer';
+import SectionCard from '../../components/SectionCard';
 import { CATEGORY_ORDER, DocIcon } from './contract-dialogs/contractDialogUtils';
 import DocTypeDialog from './contract-dialogs/DocTypeDialog';
 import TenantApplicationDialog from './contract-dialogs/TenantApplicationDialog';
@@ -108,7 +109,7 @@ export default function ActiveRentalContractPage() {
         </Box>
       )} */}
 
-      <Box sx={{ bgcolor: '#ffffff', borderRadius: '12px', p: 3, boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
+      <SectionCard title="契約文件">
 
         {/* 媒合編號（社宅專用） */}
         {isSocial && (
@@ -130,7 +131,7 @@ export default function ActiveRentalContractPage() {
             onClick={() => setTypeDialogOpen(true)}
             sx={{
               bgcolor: '#81d394', color: '#fff', fontWeight: 500,
-              borderRadius: '8px', px: 2, height: 37, mb: 3,
+              borderRadius: '8px', height: 37, mb: 3,
               '&:hover': { bgcolor: '#6bc480' },
               boxShadow: '0px 1px 5px rgba(0,0,0,0.2)',
             }}
@@ -143,7 +144,7 @@ export default function ActiveRentalContractPage() {
             onClick={() => setTypeDialogOpen(true)}
             sx={{
               bgcolor: '#81d394', color: '#fff', fontWeight: 500,
-              borderRadius: '8px', px: 2, height: 37, mb: 3,
+              borderRadius: '8px', height: 37, mb: 3,
               '&:hover': { bgcolor: '#6bc480' },
               boxShadow: '0px 1px 5px rgba(0,0,0,0.2)',
             }}
@@ -227,7 +228,7 @@ export default function ActiveRentalContractPage() {
                             startIcon={<MdFileDownload size={16} />}
                             sx={{
                               bgcolor: '#81d394', color: '#fff', fontSize: '13px',
-                              borderRadius: '6px', px: 1.5, py: 0.5, height: 30,
+                              borderRadius: '6px',
                               '&:hover': { bgcolor: '#6bc480' },
                             }}
                           >
@@ -261,7 +262,7 @@ export default function ActiveRentalContractPage() {
             </Box>
           );
         })}
-      </Box>
+      </SectionCard>
 
       {/* ── Dialogs ─────────────────────────────────────────────────────── */}
       <DocTypeDialog

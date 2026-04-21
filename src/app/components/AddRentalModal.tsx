@@ -122,6 +122,7 @@ export default function AddRentalModal({ open, onClose, onCreate }: Props) {
       slotProps={{
         paper: {
           sx: {
+            p: 4,
             width: 560,
             borderRadius: '16px',
             boxShadow: '1px 3px 7px 0px rgba(17,28,45,0.18)',
@@ -262,7 +263,7 @@ export default function AddRentalModal({ open, onClose, onCreate }: Props) {
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: 2,
+                  gap: 4,
                   py: 2,
                 }}
               >
@@ -274,8 +275,8 @@ export default function AddRentalModal({ open, onClose, onCreate }: Props) {
                       display: 'flex',
                       alignItems: 'center',
                       gap: 1,
-                      px: 2,
-                      py: 1,
+                      px: 3,
+                      py: 2,
                       border: '1px solid',
                       borderColor:
                         selectedPeriod === period.id
@@ -358,7 +359,6 @@ const primaryBtnSx = {
   borderRadius: '8px',
   fontSize: '14px',
   fontWeight: 500,
-  px: 2,
   height: '37px',
   textTransform: 'none',
   boxShadow: '0px 1px 5px rgba(0,0,0,0.12), 0px 2px 2px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.2)',
@@ -371,7 +371,6 @@ const outlinedBtnSx = {
   borderRadius: '8px',
   fontSize: '14px',
   fontWeight: 500,
-  px: 2,
   height: '37px',
   textTransform: 'none',
   '&:hover': { borderColor: '#2090d8', bgcolor: 'rgba(49,160,232,0.06)' },

@@ -162,11 +162,11 @@ function SectionCard({ title, children }: { title: string; children: React.React
       sx={{
         border: `1px solid ${COLOR.textDisabled}`,
         borderRadius: '10px',
-        p: '12px',
-        mb: 2,
+        p: 3,
+        mb: 4,
       }}
     >
-      <Typography sx={{ fontSize: '18px', color: COLOR.textPrimary, mb: 1.5, lineHeight: 'normal' }}>
+      <Typography sx={{ fontSize: '20px', fontWeight: 500, color: COLOR.textPrimary, mb: 2, lineHeight: 'normal' }}>
         {title}
       </Typography>
       {children}
@@ -235,7 +235,7 @@ function PhotoSection({ label, required = false }: { label: string; required?: b
 /** 欄位標籤 */
 function FieldLabel({ label, required = false }: { label: string; required?: boolean }) {
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
       <Typography sx={{ fontSize: '14px', color: COLOR.textSecondary, lineHeight: '22px' }}>
         {label}
       </Typography>
@@ -1334,7 +1334,7 @@ export default function ActiveRentalInspectionPage() {
             bgcolor: COLOR.boxBg,
             borderRadius: '16px',
             boxShadow: '1px 3px 7px 0px rgba(17,28,45,0.18)',
-            p: 4,
+            p: 8,
           }}
         >
           {/* Vertical Stepper */}

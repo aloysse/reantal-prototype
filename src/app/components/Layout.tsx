@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useLocation, Outlet } from 'react-router-dom';
+import brandLogo from '../../assets/logo-brandname-horizontal.svg';
 import {
   AppBar,
   Toolbar,
@@ -121,18 +122,7 @@ export default function Layout() {
         <Toolbar sx={{ minHeight: '70px !important', px: '22px !important', py: '11px !important', gap: 2 }}>
           {/* Logo */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: '26px', mr: 2, flexShrink: 0 }}>
-            <Typography
-              sx={{
-                fontWeight: 500,
-                fontSize: '26px',
-                lineHeight: 1,
-                color: '#31a0e8',
-                whiteSpace: 'nowrap',
-                fontFamily: '"Noto Sans TC", sans-serif',
-              }}
-            >
-              住通房管
-            </Typography>
+            <img src={brandLogo} alt="Brand Logo" style={{ height: 24 }} />
             <Box
               sx={{
                 display: 'flex',
@@ -182,6 +172,7 @@ export default function Layout() {
                 paper: {
                   sx: {
                     mt: 1,
+                    px: 2,
                     borderRadius: '8px',
                     boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
                     minWidth: '160px',
@@ -195,10 +186,11 @@ export default function Layout() {
                   onClick={() => handleRentalMenuSelect(item.path)}
                   selected={location.pathname === item.path}
                   sx={{
+                    borderRadius: '6px',
                     fontSize: '14px',
                     color: '#124a57',
-                    py: 1,
-                    px: 2,
+                    py: 2,
+                    px: 3,
                     '&.Mui-selected': {
                       bgcolor: 'rgba(49,160,232,0.12)',
                       color: '#31a0e8',
